@@ -1,0 +1,34 @@
+{
+  "name": "syntch_org",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client:start:dev": "npm run --prefix ./client start",
+    "client:lint": "npm run --prefix ./client lint",
+    "client:lint:fix": "npm run --prefix ./client lint:fix",
+    "client:format": "npm run --prefix ./client format",
+    "server:start": "npm run --prefix ./server start",
+    "server:start:dev": "npm run --prefix ./server dev",
+    "server:lint": "npm run --prefix ./server lint",
+    "server:lint:fix": "npm run --prefix ./server lint:fix",
+    "server:format": "npm run --prefix ./server format",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "server/src/**/*.{js,jsx,ts,tsx,json}": "eslint --config ./server/.eslintrc.json",
+    "client/src/**/*.{js,jsx,ts,tsx,json}": "eslint --config ./client/.eslintrc.json",
+    "**/*.{js,jsx,ts,tsx,json,css,scss,html,md}": "prettier --debug-check --ignore-unknown"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7"
+  }
+}
