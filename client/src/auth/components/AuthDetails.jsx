@@ -38,6 +38,9 @@ function AuthDetails() {
           <div>
             <NavLink to="/admin">Admin</NavLink>
           </div>
+          <div>
+            <NavLink to="/tasksection">Task Section</NavLink>
+          </div>
         </>
       ) : (
         <div />

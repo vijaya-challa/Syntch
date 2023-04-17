@@ -10,6 +10,7 @@ import RequireAuth from 'auth/components/RequireAuth';
 import Dashboard from 'auth/components/Dashboard';
 import ROLES from 'auth/Roles';
 import Missing from 'auth/components/Missing';
+import TaskSection from 'TaskSection/TaskSection';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         {/* USER + ADMIN */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
           <Route path="/" element={<AuthDetails />} />
+          <Route path="/tasksection" element={<TaskSection />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
