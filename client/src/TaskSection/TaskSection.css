@@ -1,4 +1,6 @@
-$btn-color: #4f4aee;
+:root {
+  --btn-color: #4f4aee;
+}
 
 .task-btn {
   width: 80vw;
@@ -23,19 +25,19 @@ $btn-color: #4f4aee;
   display: flex;
   flex-grow: 0;
   justify-content: center;
-//   border: 1px solid;
+  /* border: 1px solid; */
   border-radius: 5px;
   margin: 0 auto;
-  font-size: .8rem;
-//   overflow-wrap: break-word;
+  font-size: 0.8rem;
+  /* overflow-wrap: break-word; */
   overflow-block: scroll;
 }
 
 .arrow {
-  //   width: 0;
-  //   height: 0;
-  //   border-top: 10px solid transparent;
-  //   border-bottom: 10px solid transparent;
+  /* width: 0; */
+  /* height: 0; */
+  /* border-top: 10px solid transparent; */
+  /* border-bottom: 10px solid transparent; */
   background-color: transparent;
   outline: none;
   border: none;
@@ -45,7 +47,7 @@ $btn-color: #4f4aee;
 .arrow.prev {
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right: 10px solid $btn-color;
+  border-right: 10px solid var(--btn-color);
 }
 
 .prev.disabled {
@@ -53,16 +55,16 @@ $btn-color: #4f4aee;
 }
 
 .arrow.next {
-  //   width: 0;
-  //   height: 0;
+  /* width: 0; */
+  /* height: 0; */
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-left: 10px solid $btn-color;
-  //   cursor: pointer;
+  border-left: 10px solid var(--btn-color);
+  /* cursor: pointer; */
 }
 
 .next.disabled {
-  //   border-top: 10px solid transparent;
-  //   border-bottom: 10px solid transparent;
+  /* border-top: 10px solid transparent; */
+  /* border-bottom: 10px solid transparent; */
   border-left: 10px solid grey;
 }

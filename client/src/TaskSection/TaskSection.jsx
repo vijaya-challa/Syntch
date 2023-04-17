@@ -33,8 +33,6 @@ function TaskSection() {
     }, 1000);
   };
 
-
-
   const handleNextClick = () => {
     setCurrentTaskIndex(currentTaskIndex === data.beginner.length - 1 ? 0 : currentTaskIndex + 1);
     setCurrentTask(data.beginner[currentTaskIndex + 1][`task${currentTaskIndex + 2}`]);
@@ -112,25 +110,20 @@ function TaskSection() {
             <button
               onClick={handlePreviousClick}
               disabled={isPrevDisabled}
-              className={`arrow prev ${prevButtonClass}`}>
-             
-            </button>
-           
+              className={`arrow prev ${prevButtonClass}`}></button>
+
             {!taskAccepted && <button onClick={handleAcceptClick}>Accept</button>}
 
             {taskAccepted && <button onClick={handleSubmitClick}>Submit</button>}
             <button
               onClick={handleNextClick}
               disabled={isNextDisabled}
-              className={`arrow next ${nextButtonClass}`}>
-           
-            </button>
+              className={`arrow next ${nextButtonClass}`}></button>
           </div>
         </>
       ) : (
         <div>Loading...</div>
       )}
-     
     </div>
   );
 }
