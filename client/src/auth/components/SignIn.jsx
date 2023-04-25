@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import auth from 'firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getAdditionalUserInfo, signInWithEmailAndPassword } from 'firebase/auth';
 import GoogleSignIn from 'auth/components/GoogleSignIn';
 import { NavLink } from 'react-router-dom';
 import GithubSignIn from 'auth/components/GithubSignIn';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
+import TextField from '@mui/material/TextField';
+
 import AuthDetails from './AuthDetails';
 
 function SignIn() {
@@ -14,19 +19,37 @@ function SignIn() {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
+      const userInfo = getAdditionalUserInfo(userCredential);
+
+      console.log(userInfo);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <>
+    <Box sx={{ width: 400, height: 500, backgroundColor: '#cfd8dc', m: 4 }}>
       <AuthDetails />
+
       <div className="container signin">
         <form onSubmit={signIn} className="container">
           <h1>Log In</h1>
-          <input
+
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
+            margin="normal"
+          />
+          {/* <input
             type="email"
             placeholder="Enter your email"
             value={email}
@@ -37,11 +60,13 @@ function SignIn() {
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Log In</button>
+          /> */}
+          <Button variant="contained" size="medium" type="submit">
+            Login
+          </Button>
         </form>
         <div>Or</div>
-        <div>Login using</div>
+
         <GoogleSignIn />
         <GithubSignIn />
         <div>Or</div>
@@ -50,7 +75,7 @@ function SignIn() {
           <NavLink to="/register">Register</NavLink>
         </div>
       </div>
-    </>
+    </Box>
   );
 }
 

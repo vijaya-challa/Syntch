@@ -51,6 +51,8 @@ function TaskSection() {
     setTaskAccepted(false);
   };
 
+  const handleSubmitClick = () => {};
+
   useEffect(() => {
     async function fetchData() {
       try {

@@ -1,13 +1,14 @@
 import auth from 'firebaseConfig';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAdditionalUserInfo, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import GoogleButton from 'react-google-button';
 
 function GoogleSignIn() {
-  const signIn = async (e) => {
-    e.preventDefault();
+  const signIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
-      console.log(userCredential);
+      const userInfo = getAdditionalUserInfo(userCredential);
+      console.log(userInfo);
     } catch (error) {
       console.log(error);
     }
@@ -15,9 +16,9 @@ function GoogleSignIn() {
 
   return (
     <div className="container signin">
-      <form onSubmit={signIn}>
-        <button type="submit">Google</button>
-      </form>
+      <GoogleButton type="dark" onClick={() => signIn()}>
+        Google
+      </GoogleButton>
     </div>
   );
 }
