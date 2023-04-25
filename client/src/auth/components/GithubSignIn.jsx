@@ -1,9 +1,9 @@
 import auth from 'firebaseConfig';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
+import GithubButton from 'react-github-login-button';
 
 function GithubSignIn() {
-  const signIn = async (e) => {
-    e.preventDefault();
+  const signIn = async () => {
     try {
       const provider = new GithubAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
@@ -15,9 +15,9 @@ function GithubSignIn() {
 
   return (
     <div className="container signin">
-      <form onSubmit={signIn}>
-        <button type="submit">GitHub</button>
-      </form>
+      <GithubButton type="dark" onClick={() => signIn()}>
+        GitHub
+      </GithubButton>
     </div>
   );
 }
