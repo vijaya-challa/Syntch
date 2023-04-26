@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import GameContextProvider from 'gameSection/Context/GameContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './auth/contexts/AuthProvider';
@@ -10,11 +11,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/*" element={<App />} />
-        </Routes>
-      </AuthProvider>
+      <GameContextProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/*" element={<App />} />
+          </Routes>
+        </AuthProvider>
+      </GameContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

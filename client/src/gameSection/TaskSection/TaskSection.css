@@ -68,3 +68,27 @@
   /* border-bottom: 10px solid transparent; */
   border-left: 10px solid grey;
 }
+
+.timers {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+}
+
+.countdown {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0;
+}
+
+.timer {
+  opacity: 0;
+  font-size: 1.2rem;
+}
+
+.timerMessage {
+  position: absolute;
+  opacity: 0;
+}
