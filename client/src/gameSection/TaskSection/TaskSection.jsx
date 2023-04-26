@@ -62,6 +62,10 @@ const TaskSection = () => {
     setShowSnippet(false); //task snippet no longer visible
     setTaskAccepted(false); //accept btn is visible
     resetTimer(); //timer is set to 0
+    const messageVisible = document.querySelector('.timerMessage');
+    if (messageVisible) {
+      messageVisible.style.opacity = '0';
+    }
   };
 
   const handlePreviousClick = () => {
@@ -74,6 +78,10 @@ const TaskSection = () => {
     setShowSnippet(false);
     setTaskAccepted(false);
     resetTimer();
+    const messageVisible = document.querySelector('.timerMessage');
+    if (messageVisible) {
+      messageVisible.style.opacity = '0';
+    }
   };
 
   const isPrevDisabled = currentTaskIndex === 0; //previous btn is disabled at index 0
@@ -117,16 +125,14 @@ const TaskSection = () => {
             <button
               onClick={handlePreviousClick}
               disabled={isPrevDisabled}
-              className={`arrow prev ${prevButtonClass}`}
-            ></button>
+              className={`arrow prev ${prevButtonClass}`}></button>
             {!taskAccepted && <button onClick={handleAcceptClick}>Accept</button>}
             {taskAccepted && <Countdown delay={delay} />}
             {taskAccepted && <button onClick={handleSubmitClick}>Submit</button>}
             <button
               onClick={handleNextClick}
               disabled={isNextDisabled}
-              className={`arrow next ${nextButtonClass}`}
-            ></button>
+              className={`arrow next ${nextButtonClass}`}></button>
           </div>
         </>
       ) : (
