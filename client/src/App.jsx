@@ -10,7 +10,7 @@ import RequireAuth from 'auth/components/RequireAuth';
 import Dashboard from 'auth/components/Dashboard';
 import ROLES from 'auth/Roles';
 import Missing from 'auth/components/Missing';
-import TaskSection from 'TaskSection/TaskSection';
+import TaskSection from 'gameSection/TaskSection/TaskSection';
 
 function App() {
   return (
