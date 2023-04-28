@@ -17,7 +17,8 @@ function LevelSelector() {
     resetTimer,
     setDelay,
     setOpacity,
-    setTimerVisible
+    setTimerVisible,
+    setCountdownVisible
   } = useContext(GameContext);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ function LevelSelector() {
     setTaskAccepted(false); // accept btn is visible
     resetTimer(); // timer is set to 0
     setTimerVisible(false);
+    setCountdownVisible(false);
     setOpacity(0);
   }
 

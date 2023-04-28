@@ -43,6 +43,9 @@ const TaskSection = () => {
     setShowSnippet(true);
     setCountdownVisible(true);
     setTimeout(() => {
+      if (!showSnippet) {
+        return;
+      }
       const codeWithBlanks = generateExercise(formattedCode, numBlanks);
       timer(); //function from GameContext
       setBlanks(codeWithBlanks); //task with input fields is displayed
@@ -63,6 +66,7 @@ const TaskSection = () => {
     setTaskAccepted(false); //accept btn is visible
     resetTimer(); //timer is set to 0
     setTimerVisible(false);
+    setCountdownVisible(false);
     setOpacity(0); //timer-end message no longer visible
   };
 
@@ -77,6 +81,7 @@ const TaskSection = () => {
     setTaskAccepted(false);
     resetTimer();
     setTimerVisible(false);
+    setCountdownVisible(false);
     setOpacity(0);
   };
 
