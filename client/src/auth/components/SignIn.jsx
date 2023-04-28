@@ -28,10 +28,10 @@ function SignIn() {
   };
 
   return (
-    <Box sx={{ width: 400, height: 500, backgroundColor: '#cfd8dc', m: 4 }}>
+    <Box sx={{ width: 400, height: 500, backgroundColor: '#555555', m: 4 }}>
       <AuthDetails />
 
-      <div className="container signin">
+      <div className="container">
         <form onSubmit={signIn} className="container">
           <h1>Log In</h1>
 
