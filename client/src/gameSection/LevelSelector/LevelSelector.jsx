@@ -1,6 +1,5 @@
 import { useEffect, useContext } from 'react';
 import { GameContext } from '../Context/GameContext';
-import { toggleTimerVisibility } from '../Logic/functions';
 import './LevelSelector.css';
 
 function LevelSelector() {
@@ -17,7 +16,8 @@ function LevelSelector() {
     setTaskAccepted,
     resetTimer,
     setDelay,
-    setOpacity
+    setOpacity,
+    setTimerVisible
   } = useContext(GameContext);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function LevelSelector() {
       }
     }
     fetchData();
-  }, [selectedLevel]);
+  }, [selectedLevel, currentTaskIndex]);
 
   function handleLevelChange(level) {
     console.log('Level changed to', level);
@@ -55,14 +55,8 @@ function LevelSelector() {
     setShowSnippet(false); // task snippet no longer visible
     setTaskAccepted(false); // accept btn is visible
     resetTimer(); // timer is set to 0
-    toggleTimerVisibility(); // timer no longer visible
-    setOpacity(0); // countdown no longer visible
-    setTimeout(() => {
-      const messageVisible = document.querySelector('.timerMessage');
-      if (messageVisible) {
-        messageVisible.style.opacity = '0';
-      }
-    }, 10);
+    setTimerVisible(false);
+    setOpacity(0);
   }
 
   return (

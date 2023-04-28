@@ -24,19 +24,3 @@ export function generateExercise(text, numBlanks) {
     spanElement.parentNode.replaceChild(inputElement, spanElement);
   });
 }
-
-// function to change the timer visibility
-export const toggleTimerVisibility = () => {
-  const timerVisible = document.getElementById('timer');
-  if (timerVisible) {
-    timerVisible.style.opacity = '0';
-  }
-};
-
-// function to change the visibility of the message when timer ends
-export const toggleTimerMessageVisibility = () => {
-  const messageVisible = document.querySelector('.timerMessage');
-  if (messageVisible) {
-    messageVisible.style.opacity = '1';
-  }
-};
