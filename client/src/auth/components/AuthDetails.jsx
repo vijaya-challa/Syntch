@@ -1,11 +1,11 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import auth from 'firebaseConfig';
-import SignOut from 'auth/components/SignOut';
+// import SignOut from 'auth/components/SignOut';
 import useAuthUser from 'auth/hooks/useAuthUser';
 import ROLES from 'auth/Roles';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Avatar } from '@mui/material';
+// import { Avatar } from '@mui/material';
 
 function AuthDetails() {
   const { authUser, setAuthUser } = useAuthUser();
@@ -41,10 +41,9 @@ function AuthDetails() {
     <div>
       {authUser ? (
         <>
-          <p>{`Signed In as ${authUser.displayName}, ${authUser.email}`}</p>
-          <Avatar src={authUser.photoURL} />
+          {/* <p>{`Signed In as ${authUser.displayName}, ${authUser.email}`}</p>
+          <Avatar src={authUser.photoURL} /> */}
 
-          <SignOut />
           <div>
             <NavLink to="/dashboard">Dashboard</NavLink>
           </div>

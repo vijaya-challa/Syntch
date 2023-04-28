@@ -4,10 +4,11 @@
   align-items: center;
 }
 
-.App {
-  display: flex;
-  justify-content: center;
-}
 .signin {
   margin: 8px;
+}
+
+.centerBox {
+  display: flex;
+  justify-content: center;
 }
