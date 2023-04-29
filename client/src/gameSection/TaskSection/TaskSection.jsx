@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import atomOneDark from 'react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import prettier from 'prettier/standalone';
@@ -9,6 +9,8 @@ import Countdown from '../Logic/Countdown.js';
 import { GameContext } from '../Context/GameContext.jsx';
 import LevelSelector from 'gameSection/LevelSelector/LevelSelector.jsx';
 import './TaskSection.css';
+
+let render = 0;
 
 const TaskSection = () => {
   const {
@@ -38,18 +40,23 @@ const TaskSection = () => {
     setCountdownVisible
   } = useContext(GameContext);
 
+  const snippetIsShowing = useRef();
+  snippetIsShowing.current = showSnippet;
+
   const handleAcceptClick = () => {
     setTaskAccepted(true);
     setShowSnippet(true);
     setCountdownVisible(true);
+
     setTimeout(() => {
-      if (!showSnippet) {
+      if (!snippetIsShowing.current) {
         return;
       }
       const codeWithBlanks = generateExercise(formattedCode, numBlanks);
       timer(); //function from GameContext
       setBlanks(codeWithBlanks); //task with input fields is displayed
       setCountdownVisible(false);
+      setTimerVisible(true);
     }, delay);
   };
 
@@ -124,14 +131,16 @@ const TaskSection = () => {
             <button
               onClick={handlePreviousClick}
               disabled={isPrevDisabled}
-              className={`arrow prev ${prevButtonClass}`}></button>
+              className={`arrow prev ${prevButtonClass}`}
+            ></button>
             {!taskAccepted && <button onClick={handleAcceptClick}>Accept</button>}
             {taskAccepted && <Countdown delay={delay} />}
             {taskAccepted && <button onClick={handleSubmitClick}>Submit</button>}
             <button
               onClick={handleNextClick}
               disabled={isNextDisabled}
-              className={`arrow next ${nextButtonClass}`}></button>
+              className={`arrow next ${nextButtonClass}`}
+            ></button>
           </div>
         </>
       ) : (

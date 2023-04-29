@@ -26,6 +26,11 @@ function GameContextProvider({ children }) {
   const [timerVisible, setTimerVisible] = useState(false);
   const [countdownVisible, setCountdownVisible] = useState(false);
 
+  // const setRemainingTime = value => {
+  //   console.log(`setRemainingTime(${value})`);
+  //   setTHERemainingTime(value)
+  // }
+
   const timer = () => {
     let duration;
     switch (selectedLevel) {
@@ -115,7 +120,8 @@ function GameContextProvider({ children }) {
         setTimerVisible,
         countdownVisible,
         setCountdownVisible
-      }}>
+      }}
+    >
       {children}
     </GameContext.Provider>
   );
