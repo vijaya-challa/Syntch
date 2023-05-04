@@ -5,7 +5,7 @@ import { toggleTimerVisibility, toggleTimerMessageVisibility } from '../Logic/fu
 export const GameContext = createContext(null);
 
 function GameContextProvider({ children }) {
-  const [currentTaskIndex, setCurrentTaskIndex] = useState(1);
+  const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [currentTask, setCurrentTask] = useState(null);
   const [showSnippet, setShowSnippet] = useState(false);
   const [data, setData] = useState(null);
@@ -23,6 +23,13 @@ function GameContextProvider({ children }) {
   const [countdown, setCountdown] = useState(delay / 1000);
   const [numBlanks, setNumBlanks] = useState(0);
   const [opacity, setOpacity] = useState(0);
+  const [timerVisible, setTimerVisible] = useState(false);
+  const [countdownVisible, setCountdownVisible] = useState(false);
+
+  // const setRemainingTime = value => {
+  //   console.log(`setRemainingTime(${value})`);
+  //   setTHERemainingTime(value)
+  // }
 
   const timer = () => {
     let duration;
@@ -54,8 +61,8 @@ function GameContextProvider({ children }) {
       if (duration === 0) {
         clearInterval(intervalId); // reset the timer to 0
         setRemainingTime(''); // digits no longer visible
-        toggleTimerVisibility(); // the element that holds the timer no longer visible
-        toggleTimerMessageVisibility(); // timer-end message is visible
+        setTimerVisible(false);
+        setOpacity(1); // timer-end message is visible
       }
     }, 1000);
 
@@ -108,7 +115,11 @@ function GameContextProvider({ children }) {
         numBlanks,
         setNumBlanks,
         opacity,
-        setOpacity
+        setOpacity,
+        timerVisible,
+        setTimerVisible,
+        countdownVisible,
+        setCountdownVisible
       }}
     >
       {children}
