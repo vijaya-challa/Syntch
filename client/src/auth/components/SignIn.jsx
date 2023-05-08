@@ -6,9 +6,7 @@ import { NavLink } from 'react-router-dom';
 import GithubSignIn from 'auth/components/GithubSignIn';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
 import TextField from '@mui/material/TextField';
-
 import AuthDetails from './AuthDetails';
 
 function SignIn() {
@@ -49,18 +47,6 @@ function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
           />
-          {/* <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          /> */}
           <Button variant="contained" size="medium" type="submit">
             Login
           </Button>
