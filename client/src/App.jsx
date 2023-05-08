@@ -11,6 +11,8 @@ import Dashboard from 'auth/components/Dashboard';
 import ROLES from 'auth/Roles';
 import Missing from 'auth/components/Missing';
 import TaskSection from 'gameSection/TaskSection/TaskSection';
+import EditProfile from 'auth/components/EditProfile';
+import Sidebar from 'common/components/Sidebar';
 
 function App() {
   return (
@@ -26,8 +28,10 @@ function App() {
         {/* USER + ADMIN */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
           <Route path="/" element={<AuthDetails />} />
+          <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/tasksection" element={<TaskSection />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/sidebar" element={<Sidebar />} />
         </Route>
 
         {/* ADMIN */}

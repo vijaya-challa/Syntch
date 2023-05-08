@@ -41,17 +41,20 @@ function AuthDetails() {
     <div>
       {authUser ? (
         <>
-          {/* <p>{`Signed In as ${authUser.displayName}, ${authUser.email}`}</p>
-          <Avatar src={authUser.photoURL} /> */}
-
-          <div>
+          {/* <div>
+            <NavLink to="/editprofile">EditProfile</NavLink>
+          </div> */}
+          {/* <div>
             <NavLink to="/dashboard">Dashboard</NavLink>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <NavLink to="/admin">Admin</NavLink>
-          </div>
+          </div> */}
           <div>
             <NavLink to="/tasksection">Task Section</NavLink>
+          </div>
+          <div>
+            <NavLink to="/sidebar">Side bar</NavLink>
           </div>
         </>
       ) : (

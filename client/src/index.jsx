@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import GameContextProvider from 'gameSection/Context/GameContext';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './auth/contexts/AuthProvider';

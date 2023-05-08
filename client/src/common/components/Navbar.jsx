@@ -10,9 +10,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+
 import { useState } from 'react';
 import useAuthUser from 'auth/hooks/useAuthUser';
+import SyntchLogo from 'common/components/SyntchLogo';
 
 const pages = ['Item 1', 'Item 2', 'Item 3'];
 
@@ -41,7 +42,6 @@ function Navbar() {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -56,7 +56,7 @@ function Navbar() {
                 color: 'inherit',
                 textDecoration: 'none'
               }}>
-              LOGO
+              <SyntchLogo />
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
@@ -92,7 +92,7 @@ function Navbar() {
                 ))}
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
             <Typography
               variant="h5"
               noWrap
@@ -108,7 +108,7 @@ function Navbar() {
                 color: 'inherit',
                 textDecoration: 'none'
               }}>
-              LOGO
+              <SyntchLogo />
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (

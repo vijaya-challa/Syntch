@@ -2,6 +2,9 @@ import { useState } from 'react';
 import auth from 'firebaseConfig';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { NavLink } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import AuthDetails from './AuthDetails';
 
 function SignUp() {
@@ -23,37 +26,43 @@ function SignUp() {
   };
 
   return (
-    <>
+    <Box sx={{ width: 400, height: 500, backgroundColor: '#555555', m: 4 }}>
       <AuthDetails />
       <div className="container signup">
         <form onSubmit={signUp} className="container">
           <h1>Create Account</h1>
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={name}
+
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
             onChange={(e) => setName(e.target.value)}
           />
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
+          <TextField
+            id="outlined-password-input"
+            label="Email"
+            autoComplete="current-password"
             onChange={(e) => setEmail(e.target.value)}
+            margin="normal"
           />
-          <input
+          <TextField
+            id="outlined-password-input"
+            label="Password"
             type="password"
-            placeholder="Enter your password"
-            value={password}
+            autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
+            margin="normal"
           />
-          <button type="submit">Sign Up</button>
+          <Button variant="contained" size="medium" type="submit">
+            Sign Up
+          </Button>
         </form>
         <div>
           <div>Already have an account?</div>
           <NavLink to="/login">Login</NavLink>
         </div>
       </div>
-    </>
+    </Box>
   );
 }
 
