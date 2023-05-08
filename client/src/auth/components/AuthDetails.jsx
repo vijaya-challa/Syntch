@@ -11,30 +11,30 @@ function AuthDetails() {
   const { authUser, setAuthUser } = useAuthUser();
 
   const navigate = useNavigate();
-  const fetchData = async (token) => {
-    const resJson = await fetch('http://localhost:5000/user', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    const res = await resJson.json();
-    console.log(res);
-  };
+  // const fetchData = async (token) => {
+  //   const resJson = await fetch('http://localhost:5000/user', {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   });
+  //   const res = await resJson.json();
+  //   console.log(res);
+  // };
 
   useEffect(() => {
-    const unsubscrtibe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setAuthUser({ ...user, roles: [ROLES.User] });
-        user.getIdToken().then((token) => {
-          fetchData(token);
-        });
+        // user.getIdToken().then((token) => {
+        //   fetchData(token);
+        // });
 
         navigate('/');
       } else {
         setAuthUser(null);
       }
     });
-    return () => unsubscrtibe();
+    return () => unsubscribe();
   }, []);
 
   return (

@@ -10,6 +10,7 @@ import checkAuth from './middleware/checkAuth.js';
 
 const app = express();
 dotenv.config();
+app.use(express.json());
 app.use(logger('dev'));
 app.use(cors());
 connectDB();
