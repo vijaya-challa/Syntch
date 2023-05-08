@@ -13,6 +13,7 @@ import Missing from 'auth/components/Missing';
 import TaskSection from 'gameSection/TaskSection/TaskSection';
 import EditProfile from 'auth/components/EditProfile';
 import Sidebar from 'common/components/Sidebar';
+import DeleteAccount from 'auth/components/DeleteAccount';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/tasksection" element={<TaskSection />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/deleteprofile" element={<DeleteAccount />} />
           <Route path="/sidebar" element={<Sidebar />} />
         </Route>
 

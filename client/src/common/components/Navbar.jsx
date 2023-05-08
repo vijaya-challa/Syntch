@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import useAuthUser from 'auth/hooks/useAuthUser';
 import SyntchLogo from 'common/components/SyntchLogo';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const pages = ['Item 1', 'Item 2', 'Item 3'];
 
@@ -22,6 +23,7 @@ function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { authUser, userSignOut } = useAuthUser();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,6 +40,15 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  const editProfile = () => {
+    handleCloseUserMenu();
+    navigate('/editprofile');
+  };
+
+  const handleSignout = () => {
+    handleCloseUserMenu();
+    userSignOut();
+  };
   return (
     <div>
       <AppBar position="static">
@@ -144,7 +155,14 @@ function Navbar() {
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}>
-                  <MenuItem key="Logout" onClick={userSignOut}>
+                  <MenuItem key="profile" onClick={editProfile}>
+                    <Typography textAlign="center">Profile</Typography>
+                  </MenuItem>
+                  <MenuItem
+                    key="Logout"
+                    onClick={() => {
+                      handleSignout();
+                    }}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
                 </Menu>

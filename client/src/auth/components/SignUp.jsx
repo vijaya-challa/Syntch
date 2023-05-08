@@ -1,16 +1,23 @@
 import { useState } from 'react';
 import auth from 'firebaseConfig';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  getAdditionalUserInfo
+} from 'firebase/auth';
 import { NavLink } from 'react-router-dom';
+import useAuthUser from 'auth/hooks/useAuthUser';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import ROLES from 'auth/Roles';
 import AuthDetails from './AuthDetails';
 
 function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { addUserToBackEnd } = useAuthUser();
 
   const signUp = async (e) => {
     e.preventDefault();
@@ -19,6 +26,10 @@ function SignUp() {
       await updateProfile(auth.currentUser, {
         displayName: name
       });
+      const userInfo = await getAdditionalUserInfo(userCredential);
+      if (userInfo.isNewUser) {
+        await addUserToBackEnd(userCredential.user.accessToken, [ROLES.User]);
+      }
       console.log(userCredential);
     } catch (error) {
       console.log(error);

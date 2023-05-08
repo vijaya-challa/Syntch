@@ -29,6 +29,10 @@ function EditProfile() {
     navigate('/');
   };
 
+  const deleteHandler = () => {
+    navigate('/deleteprofile');
+  };
+
   return (
     <Box sx={{ width: 400, height: 500, backgroundColor: '#555555', m: 4 }}>
       <div className="container signup">
@@ -59,13 +63,16 @@ function EditProfile() {
             }}
           /> */}
 
-          <Button component="label">
+          <Button component="label" sx={{ mt: 1 }}>
             <Avatar sx={{ width: 150, height: 150 }} src={photo} />
             <input type="file" hidden onChange={(e) => uploadPhoto(e)} accept="image/*" />
           </Button>
 
-          <Button variant="contained" size="medium" type="submit">
+          <Button variant="contained" size="medium" type="submit" sx={{ mt: 2 }}>
             Update
+          </Button>
+          <Button variant="text" size="medium" sx={{ mt: 5 }} onClick={deleteHandler}>
+            Delete My Account
           </Button>
         </form>
       </div>
