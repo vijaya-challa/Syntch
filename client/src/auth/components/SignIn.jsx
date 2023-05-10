@@ -21,7 +21,7 @@ function SignIn() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const userInfo = getAdditionalUserInfo(userCredential);
-
+      setAuthError(null);
       console.log(userInfo);
     } catch (err) {
       console.log(err);

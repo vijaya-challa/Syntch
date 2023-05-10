@@ -5,6 +5,7 @@ import auth from 'firebaseConfig';
 import useAuthUser from 'auth/hooks/useAuthUser';
 import ROLES from 'auth/Roles';
 import { NavLink, useNavigate } from 'react-router-dom';
+import Dashboard from 'auth/components/Dashboard';
 // import { Avatar } from '@mui/material';
 
 function AuthDetails() {
@@ -41,26 +42,12 @@ function AuthDetails() {
     <div>
       {authUser ? (
         <>
-          {/* <div>
-            <NavLink to="/editprofile">EditProfile</NavLink>
-          </div> */}
-          {/* <div>
-            <NavLink to="/dashboard">Dashboard</NavLink>
-          </div> */}
-          {/* <div>
-            <NavLink to="/admin">Admin</NavLink>
-          </div> */}
+          <Dashboard />
           <div>
             <NavLink to="/tasksection">Task Section</NavLink>
           </div>
-          <div>
-            <NavLink to="/sidebar">Side bar</NavLink>
-          </div>
         </>
-      ) : (
-        <div />
-        // <p>Signed Out</p>
-      )}
+      ) : undefined}
     </div>
   );
 }
