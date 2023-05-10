@@ -23,7 +23,7 @@ function App() {
         <Route path="login" element={<SignIn />} />
         <Route path="register" element={<SignUp />} />
         <Route path="unauthorized" element={<Unauthorized />} />
-
+        <Route path="/tasksection" element={<TaskSection />} />
         {/* PROTECTED routes */}
 
         {/* USER + ADMIN */}

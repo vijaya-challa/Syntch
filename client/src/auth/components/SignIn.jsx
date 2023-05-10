@@ -31,7 +31,7 @@ function SignIn() {
 
   return (
     <div>
-      <Box sx={{ width: 400, height: 500, backgroundColor: '#555555', m: 4 }}>
+      <Box sx={{ width: 400, height: 550, backgroundColor: '#555555', m: 4 }}>
         <AuthDetails />
 
         <div className="container">
@@ -65,6 +65,8 @@ function SignIn() {
             <div>Do you want to create an account?</div>
             <NavLink to="/register">Register</NavLink>
           </div>
+          <div>Or</div>
+          <NavLink to="/tasksection">TRY</NavLink>
         </div>
       </Box>
       {authError ? (
