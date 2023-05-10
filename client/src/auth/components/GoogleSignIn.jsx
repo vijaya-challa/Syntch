@@ -14,6 +14,7 @@ function GoogleSignIn() {
       if (userInfo.isNewUser) {
         await addUserToBackEnd(userCredential.user.accessToken, [ROLES.User]);
       }
+      setAuthError(null);
     } catch (error) {
       console.log(error);
       setAuthError(error.message);
