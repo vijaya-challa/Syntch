@@ -45,9 +45,10 @@ function Navbar() {
     navigate('/editprofile');
   };
 
-  const handleSignout = () => {
+  const handleSignout = async () => {
     handleCloseUserMenu();
-    userSignOut();
+    await userSignOut();
+    navigate('/login');
   };
   return (
     <div>
