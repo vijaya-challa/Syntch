@@ -9,9 +9,13 @@
   margin: 0 auto;
 }
 
+.selector {
+display: flex;
+}
+
 .task-desc {
-  width: 80vw;
-  height: 30vh;
+  max-width: 70vw;
+  height: 7.5rem;
   display: flex;
   border: 1px solid;
   border-radius: 5px;
@@ -20,13 +24,22 @@
 }
 
 .task {
-  width: 90vw;
-  height: 30vh;
+  width: 100vw;
+  min-height: 8rem;
   display: flex;
   flex-grow: 0;
   justify-content: center;
-  /* border: 1px solid; */
-  border-radius: 5px;
+  /* background: rgb(40, 44, 52); */
+  /* background: linear-gradient(
+    90deg,
+    rgba(40, 44, 52, 0.8) 5%,
+    rgba(40, 44, 52, 0.95) 10%,
+    rgba(40, 44, 52, 1) 20%,
+    rgba(40, 44, 52, 1) 80%,
+    rgba(40, 44, 52, 0.95) 90%,
+    rgba(40, 44, 52, 0.8) 95%
+  ); */
+  /* border-radius: 5px; */
   margin: 0 auto;
   font-size: 0.8rem;
   /* overflow-wrap: break-word; */
@@ -74,7 +87,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3rem;
+  height: 2rem;
 }
 
 .countdown {
@@ -91,4 +104,30 @@
 .timerMessage {
   position: absolute;
   opacity: 0;
+}
+
+.points span {
+  font-weight: bold;
+  color: #4f4aee;
+}
+
+.input {
+  background-color: lightblue;
+}
+
+.invalid {
+  background-color: #ff9999;
+}
+
+.wrongAnswer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.wrongAnswer button {
+  width: 3rem;
+  height: fit-content;
+  cursor: pointer;
 }

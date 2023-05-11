@@ -18,7 +18,13 @@ function LevelSelector() {
     setDelay,
     setOpacity,
     setTimerVisible,
-    setCountdownVisible
+    setCountdownVisible,
+    setDefaultPoints,
+    setSubmitClicked,
+    setLevelBtnClass,
+    levelBtnClass,
+    levelBtnStyle,
+    setUserAnswer
   } = useContext(GameContext);
 
   useEffect(() => {
@@ -30,7 +36,10 @@ function LevelSelector() {
         console.log(selectedLevel);
         console.log(data[selectedLevel]);
         setData(data);
-        setCurrentTask(data[selectedLevel][currentTaskIndex][`task${currentTaskIndex + 1}`]);
+        if (selectedLevel) {
+          setCurrentTask(data[selectedLevel][currentTaskIndex][`task${currentTaskIndex + 1}`]);
+          console.log(currentTaskIndex);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -38,18 +47,29 @@ function LevelSelector() {
     fetchData();
   }, [selectedLevel, currentTaskIndex]);
 
+  const defaultBgColor = '#e6e6e6';
+
   function handleLevelChange(level) {
-    console.log('Level changed to', level);
+    // console.log('Level changed to', level);
     setSelectedLevel(level);
+    let newClass = 'levelsBtn';
+    if (level === 'beginner' || level === 'intermediate' || level === 'advanced') {
+      newClass += ' newPosition';
+    }
+    setLevelBtnClass(newClass);
     if (level === 'beginner') {
       setDelay(4000); // countdown value
       setNumBlanks(3); // input fields number
+      setDefaultPoints(5);
+      // setLevelBtnClass('newPosition');
     } else if (level === 'intermediate') {
       setDelay(2000);
       setNumBlanks(5);
+      setDefaultPoints(7);
     } else if (level === 'advanced') {
       setDelay(1000);
       setNumBlanks(7);
+      setDefaultPoints(13);
     }
     setExerciseGenerated(false); // task with input field no longer visible
     setBlanks(''); // reset the input field to 0
@@ -59,16 +79,30 @@ function LevelSelector() {
     setTimerVisible(false);
     setCountdownVisible(false);
     setOpacity(0);
+    setSubmitClicked(false);
+    setUserAnswer(false);
   }
 
   return (
-    <div className="levelsBtn">
-      -TEMP-
-      <button onClick={() => handleLevelChange('beginner')}>Beginner</button>
-      <button onClick={() => handleLevelChange('intermediate')}>Intermediate</button>
-      <button onClick={() => handleLevelChange('advanced')}>Advanced</button>
-      -TEMP-
-      {selectedLevel && <p>You selected the {selectedLevel} level.</p>}
+    <div className={levelBtnClass}>
+      <h3>Select Level</h3>
+      <button
+        onClick={() => handleLevelChange('beginner')}
+        style={selectedLevel === 'beginner' ? levelBtnStyle : { backgroundColor: defaultBgColor }}>
+        Beginner
+      </button>
+      <button
+        onClick={() => handleLevelChange('intermediate')}
+        style={
+          selectedLevel === 'intermediate' ? levelBtnStyle : { backgroundColor: defaultBgColor }
+        }>
+        Intermediate
+      </button>
+      <button
+        onClick={() => handleLevelChange('advanced')}
+        style={selectedLevel === 'advanced' ? levelBtnStyle : { backgroundColor: defaultBgColor }}>
+        Advanced
+      </button>
     </div>
   );
 }

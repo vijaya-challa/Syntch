@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { createContext, useState } from 'react';
-import { toggleTimerVisibility, toggleTimerMessageVisibility } from '../Logic/functions';
 
 export const GameContext = createContext(null);
 
@@ -25,40 +24,53 @@ function GameContextProvider({ children }) {
   const [opacity, setOpacity] = useState(0);
   const [timerVisible, setTimerVisible] = useState(false);
   const [countdownVisible, setCountdownVisible] = useState(false);
+  const [defaultPoints, setDefaultPoints] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [timeBonus, setTimeBonus] = useState(0);
+  const [submitClicked, setSubmitClicked] = useState(false);
+  const [userAnswer, setUserAnswer] = useState(false);
+  const [levelBtnClass, setLevelBtnClass] = useState('levelsBtn');
+  const [levelBtnStyle, setLevelBtnStyle] = useState({ backgroundColor: 'lightGreen' });
+  const [acceptedTasks, setAcceptedTasks] = useState(3);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  // const setRemainingTime = value => {
-  //   console.log(`setRemainingTime(${value})`);
-  //   setTHERemainingTime(value)
-  // }
+  const timeToPoints = (time) => {
+    const [minutes, seconds] = time.split(':');
+    const totalSeconds = +minutes * 60 + +seconds;
+    return totalSeconds;
+  };
 
   const timer = () => {
-    let duration;
+    let timeDuration;
     switch (selectedLevel) {
       case 'beginner':
-        duration = 1 * 60 + 30; // task timer
+        timeDuration = timeToPoints('01:05') * 1000;
         break;
       case 'intermediate':
-        duration = 1 * 60;
+        timeDuration = timeToPoints('01:00') * 1000;
         break;
       case 'advanced':
-        duration = 0 * 60 + 45;
+        timeDuration = timeToPoints('02:45') * 1000;
         break;
       default:
-        duration = 5 * 60;
+        timeDuration = timeToPoints('05:00') * 1000;
         break;
     }
 
-    let minutes = Math.floor(duration / 60);
-    let seconds = duration % 60;
+    setDuration(timeDuration); // Keep track of initial time duration
+
+    let minutes = Math.floor(timeDuration / 60000);
+    let seconds = Math.floor((timeDuration % 60000) / 1000);
 
     setRemainingTime(`${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
 
     const intervalId = setInterval(() => {
-      duration--;
-      minutes = Math.floor(duration / 60);
-      seconds = duration % 60;
+      timeDuration -= 1000;
+      minutes = Math.floor(timeDuration / 60000);
+      seconds = Math.floor((timeDuration % 60000) / 1000);
       setRemainingTime(`${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
-      if (duration === 0) {
+      if (timeDuration === 0) {
         clearInterval(intervalId); // reset the timer to 0
         setRemainingTime(''); // digits no longer visible
         setTimerVisible(false);
@@ -67,6 +79,17 @@ function GameContextProvider({ children }) {
     }, 1000);
 
     setTimerId(intervalId);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timerId);
+    setTimerId(null);
+    const [minutes, seconds] = remainingTime.split(':');
+    const remainingTimeInSeconds = +minutes * 60 + +seconds;
+    const elapsedTime = Math.floor(duration - remainingTimeInSeconds);
+    const timerBonus = duration - elapsedTime;
+    setTimeBonus(timerBonus);
+    setRemainingTime(null);
   };
 
   const resetTimer = () => {
@@ -119,9 +142,27 @@ function GameContextProvider({ children }) {
         timerVisible,
         setTimerVisible,
         countdownVisible,
-        setCountdownVisible
-      }}
-    >
+        setCountdownVisible,
+        defaultPoints,
+        setDefaultPoints,
+        totalPoints,
+        setTotalPoints,
+        stopTimer,
+        timeBonus,
+        setTimeBonus,
+        submitClicked,
+        setSubmitClicked,
+        userAnswer,
+        setUserAnswer,
+        levelBtnClass,
+        setLevelBtnClass,
+        levelBtnStyle,
+        setLevelBtnStyle,
+        acceptedTasks,
+        setAcceptedTasks,
+        modalOpen,
+        setModalOpen
+      }}>
       {children}
     </GameContext.Provider>
   );
