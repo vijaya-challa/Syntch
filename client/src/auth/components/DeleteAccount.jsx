@@ -37,8 +37,8 @@ function DeleteAccount() {
       }
 
       if (userCred) {
-        const response = await fetch('http://localhost:5000/user/delete', {
-          method: 'POST',
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/delete`, {
+          method: 'DELETE',
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function DeleteAccount() {
         console.log(response);
         await deleteUser(auth.currentUser);
 
-        navigate('/register');
+        navigate('/login');
       }
     } catch (err) {
       console.log(err);

@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 import { signOut } from 'firebase/auth';
 import auth from 'firebaseConfig';
+import ROLES from '../Roles';
 
 const AuthContext = createContext({});
 
@@ -17,15 +18,14 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const addUserToBackEnd = async (token, roles) => {
-    const response = await fetch('http://localhost:5000/user/create', {
+  const addUserToBackEnd = async (token) => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/add`, {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({ roles })
+      body: JSON.stringify({ roles: [ROLES.User] })
     });
     return response;
   };

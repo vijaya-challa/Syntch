@@ -5,6 +5,9 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 
 import userRouter from './routes/userRouter.js';
+import levelRouter from './routes/levelRouter.js';
+import taskRouter from './routes/taskRouter.js';
+import scoreRouter from './routes/scoreRouter.js';
 import connectDB from './lib/db.js';
 import checkAuth from './middleware/checkAuth.js';
 
@@ -29,6 +32,10 @@ app.get('/levels', async (req, res) => {
 });
 
 app.use('/user', checkAuth, userRouter);
+app.use('/user', checkAuth, userRouter);
+app.use('/level', checkAuth, levelRouter);
+app.use('/task', checkAuth, taskRouter);
+app.use('/score', checkAuth, scoreRouter);
 
 const port = process.env.PORT || 8001;
 app.listen(port, () => {

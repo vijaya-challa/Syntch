@@ -23,9 +23,23 @@ function AuthDetails() {
   // };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setAuthUser({ ...user, roles: [ROLES.User] });
+        let roles = [ROLES.User];
+        try {
+          const res = await fetch(`${process.env.REACT_APP_BACKEND}/user/roles`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${user.accessToken}`
+            }
+          });
+          const jsonData = await res.json();
+          roles = jsonData.roles;
+        } catch (err) {
+          console.log(err);
+        }
+        setAuthUser({ ...user, roles });
         // user.getIdToken().then((token) => {
         //   fetchData(token);
         // });
