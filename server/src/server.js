@@ -32,7 +32,6 @@ app.get('/levels', async (req, res) => {
 });
 
 app.use('/user', checkAuth, userRouter);
-app.use('/user', checkAuth, userRouter);
 app.use('/level', checkAuth, levelRouter);
 app.use('/task', checkAuth, taskRouter);
 app.use('/score', checkAuth, scoreRouter);

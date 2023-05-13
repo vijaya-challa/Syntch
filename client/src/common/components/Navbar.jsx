@@ -18,6 +18,11 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 const pages = [
   {
+    label: 'Home',
+    route: '/',
+    adminRouter: false
+  },
+  {
     label: 'Help',
     route: '/help',
     adminRoute: false

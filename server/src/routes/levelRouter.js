@@ -19,4 +19,27 @@ levelRouter.post('/add', async (req, res, next) => {
   }
 });
 
+levelRouter.delete('/delete', async (req, res, next) => {
+  try {
+    const { name } = req.body;
+    if (name) {
+      await Level.findOneAndDelete({ name });
+      res.json({ msg: `level deleted` });
+    } else {
+      res.send(createError(401, 'missing name'));
+    }
+  } catch (error) {
+    next(createError(401, error.message));
+  }
+});
+
+levelRouter.get('/all', async (req, res, next) => {
+  try {
+    const levels = await Level.find({});
+    res.json(levels);
+  } catch (error) {
+    next(createError(401, error.message));
+  }
+});
+
 export default levelRouter;
