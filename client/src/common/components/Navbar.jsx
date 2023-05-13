@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAuthUser from 'auth/hooks/useAuthUser';
 import SyntchLogo from 'common/components/SyntchLogo';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -19,18 +19,22 @@ import { Navigate, useNavigate } from 'react-router-dom';
 const pages = [
   {
     label: 'Help',
-    route: '/help'
+    route: '/help',
+    adminRoute: false
   },
   {
     label: 'Admin',
-    route: '/admin'
+    route: '/admin',
+    adminRoute: true
   }
 ];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [navPages, setNavPages] = useState([]);
   const { authUser, userSignOut, isAdmin } = useAuthUser();
+
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -63,6 +67,21 @@ function Navbar() {
     await userSignOut();
     navigate('/login');
   };
+
+  useEffect(() => {
+    const protectedPages = pages.filter((page) => {
+      return !page.adminRoute;
+    });
+    setNavPages(protectedPages);
+  }, []);
+
+  useEffect(() => {
+    const protectedPages = pages.filter((page) => {
+      return isAdmin() || !page.adminRoute;
+    });
+    setNavPages(protectedPages);
+  }, [isAdmin]);
+
   return (
     <div>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -111,7 +130,7 @@ function Navbar() {
                 sx={{
                   display: { xs: 'block', md: 'none' }
                 }}>
-                {pages.map((page) => (
+                {navPages.map((page) => (
                   <MenuItem key={page.label} onClick={() => handleNavMenuClick(page.route)}>
                     <Typography textAlign="center">{page.label}</Typography>
                   </MenuItem>
@@ -137,7 +156,7 @@ function Navbar() {
               <SyntchLogo />
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+              {navPages.map((page) => (
                 <Button
                   key={page.label}
                   onClick={() => handleNavMenuClick(page.route)}

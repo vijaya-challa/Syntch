@@ -11,6 +11,10 @@
 .centerBox {
   display: flex;
   justify-content: center;
+  margin-top: 15px;
+}
+
+.adminContainer {
   margin-top: 10px;
 }
 

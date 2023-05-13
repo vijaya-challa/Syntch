@@ -21,6 +21,7 @@ function AdminNav() {
     <Box sx={{ display: 'flex' }}>
       <Drawer
         variant="permanent"
+        anchor="right"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -53,7 +54,7 @@ function AdminNav() {
               </ListItemButton>
             </ListItem>
             <Divider />
-            <ListItem key={2} disablePadding>
+            <ListItem key={3} disablePadding>
               <ListItemButton
                 onClick={() => {
                   navigate('/admin/tasks');
