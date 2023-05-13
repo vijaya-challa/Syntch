@@ -9,18 +9,9 @@ import Dashboard from 'auth/components/Dashboard';
 // import { Avatar } from '@mui/material';
 
 function AuthDetails() {
-  const { authUser, setAuthUser } = useAuthUser();
+  const { authUser, setAuthUser, isAdmin } = useAuthUser();
 
   const navigate = useNavigate();
-  // const fetchData = async (token) => {
-  //   const resJson = await fetch('http://localhost:5000/user', {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   });
-  //   const res = await resJson.json();
-  //   console.log(res);
-  // };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -60,6 +51,11 @@ function AuthDetails() {
           <div>
             <NavLink to="/tasksection">Task Section</NavLink>
           </div>
+          {isAdmin() ? (
+            <div>
+              <NavLink to="/admin">Admin Section</NavLink>
+            </div>
+          ) : undefined}
         </>
       ) : undefined}
     </div>

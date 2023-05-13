@@ -11,18 +11,26 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-
 import { useState } from 'react';
 import useAuthUser from 'auth/hooks/useAuthUser';
 import SyntchLogo from 'common/components/SyntchLogo';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-const pages = ['Item 1', 'Item 2', 'Item 3'];
+const pages = [
+  {
+    label: 'Help',
+    route: '/help'
+  },
+  {
+    label: 'Admin',
+    route: '/admin'
+  }
+];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { authUser, userSignOut } = useAuthUser();
+  const { authUser, userSignOut, isAdmin } = useAuthUser();
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -40,6 +48,11 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  const handleNavMenuClick = (route) => {
+    handleCloseNavMenu();
+    navigate(route);
+  };
+
   const editProfile = () => {
     handleCloseUserMenu();
     navigate('/editprofile');
@@ -52,7 +65,7 @@ function Navbar() {
   };
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
@@ -99,8 +112,8 @@ function Navbar() {
                   display: { xs: 'block', md: 'none' }
                 }}>
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                  <MenuItem key={page.label} onClick={() => handleNavMenuClick(page.route)}>
+                    <Typography textAlign="center">{page.label}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -126,10 +139,10 @@ function Navbar() {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
+                  key={page.label}
+                  onClick={() => handleNavMenuClick(page.route)}
                   sx={{ my: 2, color: 'white', display: 'block' }}>
-                  {page}
+                  {page.label}
                 </Button>
               ))}
             </Box>
@@ -172,6 +185,7 @@ function Navbar() {
           </Toolbar>
         </Container>
       </AppBar>
+      <Toolbar />
     </div>
   );
 }

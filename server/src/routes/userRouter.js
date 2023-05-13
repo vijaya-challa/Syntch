@@ -17,9 +17,9 @@ userRouter.post('/add', async (req, res, next) => {
 
 userRouter.get('/roles', async (req, res, next) => {
   try {
-    const { roles } = await User.findOne({ firebase_uid: req.user.uid });
+    const user = await User.findOne({ firebase_uid: req.user.uid });
 
-    res.json({ roles });
+    res.json({ roles: user.roles });
   } catch (error) {
     next(createError(401, error.message));
   }

@@ -30,6 +30,10 @@ export function AuthProvider({ children }) {
     return response;
   };
 
+  const isAdmin = () => {
+    return authUser?.roles?.includes(ROLES.Admin);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -38,7 +42,8 @@ export function AuthProvider({ children }) {
         userSignOut,
         addUserToBackEnd,
         authError,
-        setAuthError
+        setAuthError,
+        isAdmin
       }}>
       {children}
     </AuthContext.Provider>

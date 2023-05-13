@@ -1,4 +1,5 @@
 import { useEffect, useContext } from 'react';
+import useAuthUser from '../../auth/hooks/useAuthUser';
 import { GameContext } from '../Context/GameContext';
 import './LevelSelector.css';
 
@@ -27,10 +28,19 @@ function LevelSelector() {
     setUserAnswer
   } = useContext(GameContext);
 
+  const { authUser } = useAuthUser();
+
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`http://localhost:5000/levels?${selectedLevel}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/levels?${selectedLevel}`, {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authUser.accessToken}`
+          }
+        });
         const data = await response.json();
         console.log(data);
         console.log(selectedLevel);
