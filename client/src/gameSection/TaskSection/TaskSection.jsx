@@ -173,21 +173,18 @@ const TaskSection = () => {
         const inputValue = input.value.trim();
         const originalValue = input.getAttribute('data-original-value');
 
-        if (inputValue === '') {
+        if (inputValue !== originalValue) {
           allInputsValid = false;
           input.classList.add('invalid');
-        } else if (inputValue === originalValue) {
-          setUserAnswer(true);
-          input.style.backgroundColor = 'lightGreen';
         } else {
-          allInputsValid = false;
-          input.classList.add('invalid');
+          input.style.backgroundColor = 'lightGreen';
         }
       });
 
       resolve(allInputsValid);
     });
   };
+
 
   const isPrevDisabled = currentTaskIndex === 0; //previous btn is disabled at index 0
   const prevButtonClass = isPrevDisabled ? 'disabled' : 'active'; //previous btn is enabled at index > 0
@@ -216,9 +213,9 @@ const TaskSection = () => {
     setUserAnswer(false);
   };
 
-    const handleClose = () => {
-      setModalOpen(false);
-    };
+  const handleClose = () => {
+    setModalOpen(false);
+  };
 
   return (
     <div>
