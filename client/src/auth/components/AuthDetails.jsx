@@ -9,23 +9,28 @@ import Dashboard from 'auth/components/Dashboard';
 // import { Avatar } from '@mui/material';
 
 function AuthDetails() {
-  const { authUser, setAuthUser } = useAuthUser();
+  const { authUser, setAuthUser, isAdmin } = useAuthUser();
 
   const navigate = useNavigate();
-  // const fetchData = async (token) => {
-  //   const resJson = await fetch('http://localhost:5000/user', {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   });
-  //   const res = await resJson.json();
-  //   console.log(res);
-  // };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setAuthUser({ ...user, roles: [ROLES.User] });
+        let roles = [ROLES.User];
+        try {
+          const res = await fetch(`${process.env.REACT_APP_BACKEND}/user/roles`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${user.accessToken}`
+            }
+          });
+          const jsonData = await res.json();
+          roles = jsonData.roles;
+        } catch (err) {
+          console.log(err);
+        }
+        setAuthUser({ ...user, roles });
         // user.getIdToken().then((token) => {
         //   fetchData(token);
         // });
@@ -46,6 +51,11 @@ function AuthDetails() {
           <div>
             <NavLink to="/tasksection">Task Section</NavLink>
           </div>
+          {isAdmin() ? (
+            <div>
+              <NavLink to="/admin">Admin Section</NavLink>
+            </div>
+          ) : undefined}
         </>
       ) : undefined}
     </div>

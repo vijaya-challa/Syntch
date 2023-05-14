@@ -10,7 +10,6 @@ import useAuthUser from 'auth/hooks/useAuthUser';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import ROLES from 'auth/Roles';
 import AuthDetails from './AuthDetails';
 
 function SignUp() {
@@ -28,7 +27,7 @@ function SignUp() {
       });
       const userInfo = await getAdditionalUserInfo(userCredential);
       if (userInfo.isNewUser) {
-        await addUserToBackEnd(userCredential.user.accessToken, [ROLES.User]);
+        await addUserToBackEnd(userCredential.user.accessToken);
       }
       console.log(userCredential);
     } catch (error) {

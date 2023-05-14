@@ -1,6 +1,5 @@
 import auth from 'firebaseConfig';
 import useAuthUser from 'auth/hooks/useAuthUser';
-import ROLES from 'auth/Roles';
 import { GithubAuthProvider, getAdditionalUserInfo, signInWithPopup } from 'firebase/auth';
 import GithubButton from 'react-github-login-button';
 
@@ -13,7 +12,7 @@ function GithubSignIn() {
       const userCredential = await signInWithPopup(auth, provider);
       const userInfo = getAdditionalUserInfo(userCredential);
       if (userInfo.isNewUser) {
-        await addUserToBackEnd(userCredential.user.accessToken, [ROLES.User]);
+        await addUserToBackEnd(userCredential.user.accessToken);
       }
       setAuthError(null);
     } catch (error) {

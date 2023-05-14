@@ -1,6 +1,5 @@
 import auth from 'firebaseConfig';
 import useAuthUser from 'auth/hooks/useAuthUser';
-import ROLES from 'auth/Roles';
 import { getAdditionalUserInfo, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import GoogleButton from 'react-google-button';
 
@@ -12,7 +11,7 @@ function GoogleSignIn() {
       const userCredential = await signInWithPopup(auth, provider);
       const userInfo = getAdditionalUserInfo(userCredential);
       if (userInfo.isNewUser) {
-        await addUserToBackEnd(userCredential.user.accessToken, [ROLES.User]);
+        await addUserToBackEnd(userCredential.user.accessToken);
       }
       setAuthError(null);
     } catch (error) {
