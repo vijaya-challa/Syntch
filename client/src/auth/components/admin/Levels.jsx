@@ -14,25 +14,33 @@ import {
 import { useEffect, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { useSnackbar } from 'notistack';
 import useAuthUser from '../../hooks/useAuthUser';
 import AdminNav from './AdminNav';
 
 function Levels() {
   const [levels, setLevels] = useState([]);
   const [levelName, setLevelName] = useState('');
+
   const { authUser } = useAuthUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   const updateLevels = async () => {
     async function fetchData() {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/all`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authUser.accessToken}`
-        }
-      });
-      const jsonData = await response.json();
-      setLevels(jsonData);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/all`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authUser.accessToken}`
+          }
+        });
+        const jsonData = await response.json();
+        setLevels(jsonData);
+      } catch (err) {
+        console.log(err);
+        enqueueSnackbar('Failed to update Levels. Something went wrong', { variant: 'error' });
+      }
     }
     fetchData();
   };
@@ -51,12 +59,14 @@ function Levels() {
         },
         body: JSON.stringify({ name: levelName })
       });
-      const jsonData = await response.json();
-      console.log(jsonData);
+      await response.json();
+      setLevelName('');
+      enqueueSnackbar('Level added', { variant: 'success' });
     } catch (err) {
       console.log(err);
+      enqueueSnackbar('Failed to add level. Something went wrong.', { variant: 'error' });
     }
-    setLevelName('');
+
     updateLevels();
   };
 
@@ -70,12 +80,14 @@ function Levels() {
         },
         body: JSON.stringify({ name: levelName })
       });
-      const jsonData = await response.json();
-      console.log(jsonData);
+      await response.json();
+      setLevelName('');
+      enqueueSnackbar('Level removed', { variant: 'warning' });
     } catch (err) {
       console.log(err);
+      enqueueSnackbar('Failed to remove level. Something went wrong.', { variant: 'error' });
     }
-    setLevelName('');
+
     updateLevels();
   };
 

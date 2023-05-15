@@ -14,26 +14,35 @@ import {
 import { useEffect, useState } from 'react';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { useSnackbar } from 'notistack';
 import useAuthUser from '../../hooks/useAuthUser';
 import AdminNav from './AdminNav';
 
 function Users() {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
+
   const { authUser } = useAuthUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   const updateUsers = async () => {
     async function fetchData() {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/all`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authUser.accessToken}`
-        }
-      });
-      const jsonData = await response.json();
-      setUsers(jsonData);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/all`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authUser.accessToken}`
+          }
+        });
+        const jsonData = await response.json();
+        setUsers(jsonData);
+      } catch (err) {
+        console.log(err);
+        enqueueSnackbar('Failed to update Users. Something went wrong', { variant: 'error' });
+      }
     }
+
     fetchData();
   };
 
@@ -51,12 +60,14 @@ function Users() {
         },
         body: JSON.stringify({ email })
       });
-      const jsonData = await response.json();
-      console.log(jsonData);
+      await response.json();
+      setEmail('');
+      enqueueSnackbar('Admin added', { variant: 'success' });
     } catch (err) {
       console.log(err);
+      enqueueSnackbar('Failed to add admin. Something went wrong.', { variant: 'error' });
     }
-    setEmail('');
+
     updateUsers();
   };
 
@@ -70,12 +81,14 @@ function Users() {
         },
         body: JSON.stringify({ email })
       });
-      const jsonData = await response.json();
-      console.log(jsonData);
+      await response.json();
+      setEmail('');
+      enqueueSnackbar('Admin removed', { variant: 'warning' });
     } catch (err) {
       console.log(err);
+      enqueueSnackbar('Failed to remove admin. Something went wrong.', { variant: 'error' });
     }
-    setEmail('');
+
     updateUsers();
   };
 

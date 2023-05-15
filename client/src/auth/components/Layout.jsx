@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from 'common/components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import { SnackbarProvider } from 'notistack';
 
 const darkTheme = createTheme({
   palette: { mode: 'dark' }
@@ -15,12 +16,14 @@ function Layout() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <main className="App">
-        <Navbar />
-        <div className="centerBox">
-          <Outlet />
-        </div>
-      </main>
+      <SnackbarProvider maxSnack={5}>
+        <main className="App">
+          <Navbar />
+          <div className="centerBox">
+            <Outlet />
+          </div>
+        </main>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }
