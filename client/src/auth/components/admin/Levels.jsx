@@ -91,6 +91,27 @@ function Levels() {
     updateLevels();
   };
 
+  const removeLevelById = async (id) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authUser.accessToken}`
+        },
+        body: JSON.stringify({ id })
+      });
+      await response.json();
+      setLevelName('');
+      enqueueSnackbar('Level removed', { variant: 'warning' });
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar('Failed to remove level. Something went wrong.', { variant: 'error' });
+    }
+
+    updateLevels();
+  };
+
   return (
     <div>
       <AdminNav />
@@ -130,6 +151,9 @@ function Levels() {
                 <TableCell>
                   <Typography variant="h6">Level Name</Typography>
                 </TableCell>
+                <TableCell align="center">
+                  <Typography variant="h6">Action</Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -137,6 +161,15 @@ function Levels() {
                 return (
                   <TableRow key={level.name}>
                     <TableCell>{level.name}</TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="text"
+                        color="warning"
+                        // eslint-disable-next-line no-underscore-dangle
+                        onClick={() => removeLevelById(level._id)}>
+                        Remove
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 );
               })}

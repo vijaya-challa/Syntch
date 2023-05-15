@@ -71,6 +71,27 @@ function Users() {
     updateUsers();
   };
 
+  const addAdminShortcut = async (emailId) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/admin-add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authUser.accessToken}`
+        },
+        body: JSON.stringify({ email: emailId })
+      });
+      await response.json();
+      setEmail('');
+      enqueueSnackbar('Admin added', { variant: 'success' });
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar('Failed to add admin. Something went wrong.', { variant: 'error' });
+    }
+
+    updateUsers();
+  };
+
   const removeAdminRole = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/admin-remove`, {
@@ -80,6 +101,27 @@ function Users() {
           Authorization: `Bearer ${authUser.accessToken}`
         },
         body: JSON.stringify({ email })
+      });
+      await response.json();
+      setEmail('');
+      enqueueSnackbar('Admin removed', { variant: 'warning' });
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar('Failed to remove admin. Something went wrong.', { variant: 'error' });
+    }
+
+    updateUsers();
+  };
+
+  const removeAdminShortcut = async (emailId) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/admin-remove`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authUser.accessToken}`
+        },
+        body: JSON.stringify({ email: emailId })
       });
       await response.json();
       setEmail('');
@@ -134,6 +176,9 @@ function Users() {
                 <TableCell>
                   <Typography variant="h6">Roles</Typography>
                 </TableCell>
+                <TableCell align="center">
+                  <Typography variant="h6">Action</Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -143,6 +188,25 @@ function Users() {
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.displayName}</TableCell>
                     <TableCell>{user.roles.join(', ')}</TableCell>
+                    <TableCell align="center">
+                      {user.roles.includes('admin') ? (
+                        <Button
+                          variant="text"
+                          color="warning"
+                          // eslint-disable-next-line no-underscore-dangle
+                          onClick={() => removeAdminShortcut(user.email)}>
+                          Remove
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="text"
+                          color="success"
+                          // eslint-disable-next-line no-underscore-dangle
+                          onClick={() => addAdminShortcut(user.email)}>
+                          ADD
+                        </Button>
+                      )}
+                    </TableCell>
                   </TableRow>
                 );
               })}
