@@ -50,7 +50,6 @@ userRouter.get('/all', async (req, res, next) => {
         roles
       };
     });
-    console.log({ ...resdata });
     res.json(resdata);
   } catch (error) {
     next(createError(401, error.message));
