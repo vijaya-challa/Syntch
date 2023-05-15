@@ -4,36 +4,39 @@ import { createContext, useState } from 'react';
 export const GameContext = createContext(null);
 
 function GameContextProvider({ children }) {
-  const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
-  const [currentTask, setCurrentTask] = useState(null);
-  const [showSnippet, setShowSnippet] = useState(false);
-  const [data, setData] = useState(null);
+  const [acceptedTasks, setAcceptedTasks] = useState(3);
   const [blanks, setBlanks] = useState('');
-  const [exerciseGenerated, setExerciseGenerated] = useState(false);
-  const [totalTime, setTotalTime] = useState(0);
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [taskAccepted, setTaskAccepted] = useState(false);
-  const [remainingTime, setRemainingTime] = useState();
-  const [selectedLevel, setSelectedLevel] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
-  const [timerId, setTimerId] = useState(null);
   const [delay, setDelay] = useState(0);
   const [countdown, setCountdown] = useState(delay / 1000);
+  const [countdownVisible, setCountdownVisible] = useState(false);
+  const [completedTasksArr, setCompletedTasksArr] = useState([]);
+  const [currentTask, setCurrentTask] = useState(null);
+  const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
+  const [data, setData] = useState(null);
+  const [defaultPoints, setDefaultPoints] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [endTime, setEndTime] = useState(null);
+  const [exerciseGenerated, setExerciseGenerated] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
+  const [finishedTasks, setFinishedTasks] = useState(0);
+  const [levelBtnClass, setLevelBtnClass] = useState('levelsBtn');
+  const [levelBtnStyle, setLevelBtnStyle] = useState({ backgroundColor: '#ce93d8' });
+  const [modalOpen, setModalOpen] = useState(false);
   const [numBlanks, setNumBlanks] = useState(0);
   const [opacity, setOpacity] = useState(0);
-  const [timerVisible, setTimerVisible] = useState(false);
-  const [countdownVisible, setCountdownVisible] = useState(false);
-  const [defaultPoints, setDefaultPoints] = useState(0);
-  const [totalPoints, setTotalPoints] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [timeBonus, setTimeBonus] = useState(0);
+  const [remainingTime, setRemainingTime] = useState();
+  const [selectedLevel, setSelectedLevel] = useState('');
+  const [showSnippet, setShowSnippet] = useState(false);
+  const [startTime, setStartTime] = useState(null);
   const [submitClicked, setSubmitClicked] = useState(false);
+  const [taskAccepted, setTaskAccepted] = useState(false);
+  const [timeBonus, setTimeBonus] = useState(0);
+  const [timerId, setTimerId] = useState(null);
+  const [timerVisible, setTimerVisible] = useState(false);
+  const [totalPoints, setTotalPoints] = useState(0);
+  const [totalTasks, setTotalTasks] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
   const [userAnswer, setUserAnswer] = useState(false);
-  const [levelBtnClass, setLevelBtnClass] = useState('levelsBtn');
-  const [levelBtnStyle, setLevelBtnStyle] = useState({ backgroundColor: 'lightGreen' });
-  const [acceptedTasks, setAcceptedTasks] = useState(3);
-  const [modalOpen, setModalOpen] = useState(false);
 
   const timeToPoints = (time) => {
     const [minutes, seconds] = time.split(':');
@@ -161,7 +164,13 @@ function GameContextProvider({ children }) {
         acceptedTasks,
         setAcceptedTasks,
         modalOpen,
-        setModalOpen
+        setModalOpen,
+        totalTasks,
+        setTotalTasks,
+        finishedTasks,
+        setFinishedTasks,
+        completedTasksArr,
+        setCompletedTasksArr
       }}>
       {children}
     </GameContext.Provider>

@@ -1,5 +1,6 @@
-:root {
-  --btn-color: #4f4aee;
+* {
+  --btn-color: #6eea62;
+  /* font-family: 'Gruppo'; */
 }
 
 .task-btn {
@@ -7,20 +8,22 @@
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
+  padding-top: 10px;
 }
 
 .selector {
-display: flex;
+  display: flex;
 }
 
 .task-desc {
   max-width: 70vw;
   height: 7.5rem;
   display: flex;
-  border: 1px solid;
+  border: 1px solid #90caf9;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   margin: 0 auto;
+  /* font-family: 'Gruppo'; */
 }
 
 .task {
@@ -29,8 +32,8 @@ display: flex;
   display: flex;
   flex-grow: 0;
   justify-content: center;
-  /* background: rgb(40, 44, 52); */
-  /* background: linear-gradient(
+  /* background: rgb(40, 44, 52);
+  background: linear-gradient(
     90deg,
     rgba(40, 44, 52, 0.8) 5%,
     rgba(40, 44, 52, 0.95) 10%,
@@ -39,11 +42,10 @@ display: flex;
     rgba(40, 44, 52, 0.95) 90%,
     rgba(40, 44, 52, 0.8) 95%
   ); */
-  /* border-radius: 5px; */
   margin: 0 auto;
   font-size: 0.8rem;
-  /* overflow-wrap: break-word; */
-  overflow-block: scroll;
+  overflow-wrap: break-word;
+  /* overflow-block: scroll; */
 }
 
 .arrow {
@@ -108,7 +110,8 @@ display: flex;
 
 .points span {
   font-weight: bold;
-  color: #4f4aee;
+  font-size: 1.3rem;
+  color: #84cbf1;
 }
 
 .input {
@@ -130,4 +133,12 @@ display: flex;
   width: 3rem;
   height: fit-content;
   cursor: pointer;
+}
+
+@media (width < 900px) {
+  .taskSection {
+   position: relative;
+   top: 5.5rem;
+   z-index: 11;
+  }
 }
