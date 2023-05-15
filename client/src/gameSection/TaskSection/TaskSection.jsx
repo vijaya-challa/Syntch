@@ -216,9 +216,9 @@ const TaskSection = () => {
     setUserAnswer(false);
   };
 
-    const handleClose = () => {
-      setModalOpen(false);
-    };
+  const handleClose = () => {
+    setModalOpen(false);
+  };
 
   return (
     <div>
