@@ -71,7 +71,12 @@ function EditProfile() {
           <Button variant="contained" size="medium" type="submit" sx={{ mt: 2 }}>
             Update
           </Button>
-          <Button variant="text" size="medium" sx={{ mt: 5 }} onClick={deleteHandler}>
+          <Button
+            variant="text"
+            size="medium"
+            sx={{ mt: 5 }}
+            onClick={deleteHandler}
+            style={{ color: 'tomato' }}>
             Delete My Account
           </Button>
         </form>

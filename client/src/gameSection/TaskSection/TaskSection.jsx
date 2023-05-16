@@ -52,7 +52,10 @@ const TaskSection = () => {
     acceptedTasks,
     setAcceptedTasks,
     modalOpen,
-    setModalOpen
+    setModalOpen,
+    setFinishedTasks,
+    completedTasksArr,
+    setCompletedTasksArr
   } = useContext(GameContext);
 
   const { authUser } = useContext(AuthContext);
@@ -127,8 +130,72 @@ const TaskSection = () => {
       setOpacity(0);
       setTimerVisible(false);
       setSubmitClicked(true);
+      // setFinishedTasks(+1);
     }
   };
+
+  // const handleSubmitClick = async () => {
+  //   const isValid = await taskValidator();
+  //   if (!isValid && userAnswer === false) {
+  //     resetTimer();
+  //     setOpacity(0);
+  //     setTimerVisible(false);
+  //     setSubmitClicked(true);
+  //     // console.log('Wrong Answer');
+  //   } else {
+  //     stopTimer();
+  //     console.log('Default Points:', defaultPoints);
+  //     console.log('Total Points:', totalPoints);
+  //     setOpacity(0);
+  //     setTimerVisible(false);
+  //     setSubmitClicked(true);
+  //     if (!completedTasksArr.includes(currentTaskIndex)) {
+  //       setCompletedTasksArr([...completedTasksArr, currentTaskIndex]);
+  //       setFinishedTasks((prev) => prev + 1);
+  //     }
+  //   }
+  // };
+
+  // const handleSubmitClick = async () => {
+  //   const isValid = await taskValidator();
+  //   if (!isValid && userAnswer === false) {
+  //     resetTimer();
+  //     setOpacity(0);
+  //     setTimerVisible(false);
+  //     setSubmitClicked(true);
+  //     // console.log('Wrong Answer');
+  //   } else {
+  //     stopTimer();
+  //     console.log('Default Points:', defaultPoints);
+  //     console.log('Total Points:', totalPoints);
+  //     setOpacity(0);
+  //     setTimerVisible(false);
+  //     setSubmitClicked(true);
+  //     console.log('current:', currentTask);
+  //     if (!completedTasksArr.includes(currentTaskIndex)) {
+  //       setCompletedTasksArr([...completedTasksArr, currentTaskIndex]);
+  //       setFinishedTasks((prev) => prev + 1);
+
+  //       // send score to the backend
+  //       const response = await fetch(`${process.env.REACT_APP_BACKEND}/scores`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: `Bearer ${authUser.accessToken}`
+  //         },
+  //         body: JSON.stringify({
+  //           user: authUser,
+  //           task: currentTask,
+  //           points: totalPoints
+  //         })
+  //       });
+
+  //       if (!response.ok) {
+  //         console.error('Error sending score to backend');
+  //       }
+  //     }
+  //   }
+  // };
 
   const handleNextClick = () => {
     const nextIndex =
@@ -173,17 +240,20 @@ const TaskSection = () => {
         const inputValue = input.value.trim();
         const originalValue = input.getAttribute('data-original-value');
 
-        if (inputValue === '') {
+        // console.log('Input value:', inputValue);
+        // console.log('Original value:', originalValue);
+
+        if (inputValue !== originalValue) {
           allInputsValid = false;
+          setUserAnswer(false);
           input.classList.add('invalid');
-        } else if (inputValue === originalValue) {
-          setUserAnswer(true);
-          input.style.backgroundColor = 'lightGreen';
         } else {
-          allInputsValid = false;
-          input.classList.add('invalid');
+          input.style.backgroundColor = 'lightGreen';
+          setUserAnswer(true);
         }
       });
+
+      console.log('All inputs valid:', allInputsValid);
 
       resolve(allInputsValid);
     });
@@ -225,52 +295,63 @@ const TaskSection = () => {
       {currentTask ? (
         <>
           <div className="task-desc">{currentTask.description}</div>
-          <div className="timers">
-            {countdownVisible && <div className="countdown">{countdown}</div>}
-            {taskAccepted && timerVisible && (
-              <div className="timer">Remaining time: {remainingTime}</div>
-            )}
-            <div className="timerMessage" style={{ opacity }}>
-              <h2>Time's Up!</h2>
+          <div className="taskSection">
+            <div className="timers">
+              {countdownVisible && <div className="countdown">{countdown}</div>}
+              {taskAccepted && timerVisible && (
+                <div className="timer">Remaining time: {remainingTime}</div>
+              )}
+              <div className="timerMessage" style={{ opacity }}>
+                <h2>Time's Up!</h2>
+              </div>
+              {submitClicked && userAnswer && (
+                <div className="points">
+                  <p>
+                    Congratulations! You have earned <span>{totalPoints}</span> points!
+                  </p>
+                </div>
+              )}
+              {submitClicked && !userAnswer && (
+                <div className="wrongAnswer">
+                  <p>Wrong answer, do you want to try again?</p>
+                  <button onClick={handleRetryClick}>Retry</button>
+                </div>
+              )}
             </div>
-            {submitClicked && userAnswer && (
-              <div className="points">
-                <p>
-                  Congratulations! You have earned <span>{totalPoints}</span> points!
-                </p>
-              </div>
-            )}
-            {submitClicked && !userAnswer && (
-              <div className="wrongAnswer">
-                <p>Wrong answer, do you want to try again?</p>
-                <button onClick={handleRetryClick}>Retry</button>
-              </div>
-            )}
-          </div>
-          <div className="task">
-            {showSnippet && (
-              <SyntaxHighlighter language="javascript" style={atomOneDark}>
-                {formattedCode}
-              </SyntaxHighlighter>
-            )}
-            {modalOpen && <Modal handleClose={handleClose} />}
-          </div>
-          <div className="task-btn">
-            <button
-              onClick={handlePreviousClick}
-              disabled={isPrevDisabled}
-              className={`arrow prev ${prevButtonClass}`}></button>
-            {!taskAccepted && <button onClick={handleAcceptClick}>Accept</button>}
-            {taskAccepted && <Countdown delay={delay} />}
-            {taskAccepted && (
-              <button onClick={handleSubmitClick} disabled={submitClicked}>
-                Submit
-              </button>
-            )}
-            <button
-              onClick={handleNextClick}
-              disabled={isNextDisabled}
-              className={`arrow next ${nextButtonClass}`}></button>
+            <div className="task">
+              {showSnippet && (
+                <SyntaxHighlighter language="javascript" style={atomOneDark}>
+                  {formattedCode}
+                </SyntaxHighlighter>
+              )}
+              {modalOpen && <Modal handleClose={handleClose} />}
+            </div>
+            <div className="task-btn">
+              <button
+                onClick={handlePreviousClick}
+                disabled={isPrevDisabled}
+                className={`arrow prev ${prevButtonClass}`}></button>
+              {!taskAccepted && (
+                <button
+                  onClick={handleAcceptClick}
+                  style={{ backgroundColor: 'lightGreen', borderRadius: '3px', cursor: 'pointer' }}>
+                  Accept
+                </button>
+              )}
+              {taskAccepted && <Countdown delay={delay} />}
+              {taskAccepted && (
+                <button
+                  onClick={handleSubmitClick}
+                  disabled={submitClicked}
+                  style={{ backgroundColor: 'lightGreen', borderRadius: '3px', cursor: 'pointer' }}>
+                  Submit
+                </button>
+              )}
+              <button
+                onClick={handleNextClick}
+                disabled={isNextDisabled}
+                className={`arrow next ${nextButtonClass}`}></button>
+            </div>
           </div>
         </>
       ) : (

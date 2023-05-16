@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import useAuthUser from '../../auth/hooks/useAuthUser';
+// import useAuthUser from '../../auth/hooks/useAuthUser';
 import { GameContext } from '../Context/GameContext';
 import './LevelSelector.css';
 
@@ -26,31 +26,36 @@ function LevelSelector() {
     setLevelBtnClass,
     levelBtnClass,
     levelBtnStyle,
-    setUserAnswer
+    setUserAnswer,
+    totalTasks,
+    setTotalTasks
   } = useContext(GameContext);
-
-  const { authUser } = useAuthUser();
   const [searchParams] = useSearchParams();
+  // const { authUser } = useAuthUser();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/levels?${selectedLevel}`, {
           method: 'GET',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authUser.accessToken}`
-          }
+          mode: 'cors'
+          // headers: {
+          //   'Content-Type': 'application/json',
+          //   Authorization: `Bearer ${authUser.accessToken}`
+          // }
         });
         const data = await response.json();
         console.log(data);
         console.log(selectedLevel);
         console.log(data[selectedLevel]);
         setData(data);
+        console.log(data.beginner.length);
         if (selectedLevel) {
           setCurrentTask(data[selectedLevel][currentTaskIndex][`task${currentTaskIndex + 1}`]);
+          setTotalTasks(selectedLevel.length);
           console.log(currentTaskIndex);
+          console.log('SL:', selectedLevel.length);
+          console.log(totalTasks);
         }
       } catch (err) {
         console.log(err);
@@ -59,7 +64,7 @@ function LevelSelector() {
     fetchData();
   }, [selectedLevel, currentTaskIndex]);
 
-  const defaultBgColor = '#e6e6e6';
+  const defaultBgColor = '#90caf9';
 
   function handleLevelChange(level) {
     // console.log('Level changed to', level);
@@ -103,23 +108,29 @@ function LevelSelector() {
   return (
     <div className={levelBtnClass}>
       <h3>Select Level</h3>
-      <button
-        onClick={() => handleLevelChange('beginner')}
-        style={selectedLevel === 'beginner' ? levelBtnStyle : { backgroundColor: defaultBgColor }}>
-        Beginner
-      </button>
-      <button
-        onClick={() => handleLevelChange('intermediate')}
-        style={
-          selectedLevel === 'intermediate' ? levelBtnStyle : { backgroundColor: defaultBgColor }
-        }>
-        Intermediate
-      </button>
-      <button
-        onClick={() => handleLevelChange('advanced')}
-        style={selectedLevel === 'advanced' ? levelBtnStyle : { backgroundColor: defaultBgColor }}>
-        Advanced
-      </button>
+      <div className="levelButtons">
+        <button
+          onClick={() => handleLevelChange('beginner')}
+          style={
+            selectedLevel === 'beginner' ? levelBtnStyle : { backgroundColor: defaultBgColor }
+          }>
+          Beginner
+        </button>
+        <button
+          onClick={() => handleLevelChange('intermediate')}
+          style={
+            selectedLevel === 'intermediate' ? levelBtnStyle : { backgroundColor: defaultBgColor }
+          }>
+          Intermediate
+        </button>
+        <button
+          onClick={() => handleLevelChange('advanced')}
+          style={
+            selectedLevel === 'advanced' ? levelBtnStyle : { backgroundColor: defaultBgColor }
+          }>
+          Advanced
+        </button>
+      </div>
     </div>
   );
 }
