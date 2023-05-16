@@ -26,7 +26,7 @@ function App() {
         {/* PUBLIC routes */}
         <Route path="login" element={<SignIn />} />
         <Route path="landingpage" element={<Home />} />
-        <Route path="howtoplay" element={<HowPlay />} />
+        <Route path="howtoplaygame" element={<HowPlay />} />
         <Route path="register" element={<SignUp />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="tasksection" element={<TaskSection />} />

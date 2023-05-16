@@ -24,7 +24,7 @@ const pages = [
   },
   {
     label: 'How To Play',
-    route: '/howtoplay',
+    route: '/howtoplaygame',
     adminRoute: false
   },
   {
