@@ -13,7 +13,6 @@ import Missing from 'auth/components/Missing';
 import TaskSection from 'gameSection/TaskSection/TaskSection';
 import EditProfile from 'auth/components/EditProfile';
 import DeleteAccount from 'auth/components/DeleteAccount';
-import Help from './common/components/Help';
 import Admin from './auth/components/admin/Admin';
 import Tasks from './auth/components/admin/Tasks';
 import Levels from './auth/components/admin/Levels';
@@ -31,7 +30,6 @@ function App() {
         <Route path="register" element={<SignUp />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="tasksection" element={<TaskSection />} />
-        <Route path="help" element={<Help />} />
 
         {/* PROTECTED routes */}
 
