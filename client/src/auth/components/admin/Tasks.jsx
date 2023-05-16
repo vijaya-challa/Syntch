@@ -17,43 +17,56 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useSnackbar } from 'notistack';
 import useAuthUser from '../../hooks/useAuthUser';
 import AdminNav from './AdminNav';
 
 function Tasks() {
   const [levels, setLevels] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [level, setLevel] = useState('');
   const [description, setDescription] = useState('');
   const [snippet, setSnippet] = useState('');
-  const [level, setLevel] = useState('');
+
   const { authUser } = useAuthUser();
+  const { enqueueSnackbar } = useSnackbar();
 
   const updateTasks = async () => {
     async function fetchData() {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND}/task/all`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authUser.accessToken}`
-        }
-      });
-      const jsonData = await response.json();
-      setTasks(jsonData);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/task/all`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authUser.accessToken}`
+          }
+        });
+        const jsonData = await response.json();
+        setTasks(jsonData);
+      } catch (err) {
+        console.log(err);
+        enqueueSnackbar('Failed to update Tasks. Something went wrong', { variant: 'error' });
+      }
     }
     fetchData();
   };
 
   const updateLevels = async () => {
     async function fetchData() {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/all`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authUser.accessToken}`
-        }
-      });
-      const jsonData = await response.json();
-      setLevels(jsonData);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/all`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authUser.accessToken}`
+          }
+        });
+        const jsonData = await response.json();
+        setLevels(jsonData);
+      } catch (err) {
+        console.log(err);
+        enqueueSnackbar('Failed to update levels. Something went wrong', { variant: 'error' });
+      }
     }
     fetchData();
   };
@@ -73,10 +86,14 @@ function Tasks() {
         },
         body: JSON.stringify({ description, snippet, level })
       });
-      const jsonData = await response.json();
-      console.log(jsonData);
+      await response.json();
+      setLevel('');
+      setDescription('');
+      setSnippet('');
+      enqueueSnackbar('Task added', { variant: 'success' });
     } catch (err) {
       console.log(err);
+      enqueueSnackbar('Please check your inputs', { variant: 'error' });
     }
     updateTasks();
   };
@@ -91,12 +108,12 @@ function Tasks() {
         },
         body: JSON.stringify({ id })
       });
-      const jsonData = await response.json();
-      console.log(jsonData);
+      await response.json();
+      enqueueSnackbar('Task removed', { variant: 'warning' });
     } catch (err) {
       console.log(err);
+      enqueueSnackbar('Failed to remove task', { variant: 'error' });
     }
-
     updateTasks();
   };
 
