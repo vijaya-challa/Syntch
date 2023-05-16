@@ -115,24 +115,24 @@ const TaskSection = () => {
     console.log('Total Points:', totalPoints);
   }, [timeBonus, totalPoints]);
 
-  // const handleSubmitClick = async () => {
-  //   const isValid = await taskValidator();
-  //   if (!isValid && userAnswer === false) {
-  //     resetTimer();
-  //     setOpacity(0);
-  //     setTimerVisible(false);
-  //     setSubmitClicked(true);
-  //     // console.log('Wrong Answer');
-  //   } else {
-  //     stopTimer();
-  //     console.log('Default Points:', defaultPoints);
-  //     console.log('Total Points:', totalPoints);
-  //     setOpacity(0);
-  //     setTimerVisible(false);
-  //     setSubmitClicked(true);
-  //     setFinishedTasks(+1);
-  //   }
-  // };
+  const handleSubmitClick = async () => {
+    const isValid = await taskValidator();
+    if (!isValid && userAnswer === false) {
+      resetTimer();
+      setOpacity(0);
+      setTimerVisible(false);
+      setSubmitClicked(true);
+      // console.log('Wrong Answer');
+    } else {
+      stopTimer();
+      console.log('Default Points:', defaultPoints);
+      console.log('Total Points:', totalPoints);
+      setOpacity(0);
+      setTimerVisible(false);
+      setSubmitClicked(true);
+      // setFinishedTasks(+1);
+    }
+  };
 
   // const handleSubmitClick = async () => {
   //   const isValid = await taskValidator();
@@ -156,46 +156,46 @@ const TaskSection = () => {
   //   }
   // };
 
-  const handleSubmitClick = async () => {
-    const isValid = await taskValidator();
-    if (!isValid && userAnswer === false) {
-      resetTimer();
-      setOpacity(0);
-      setTimerVisible(false);
-      setSubmitClicked(true);
-      // console.log('Wrong Answer');
-    } else {
-      stopTimer();
-      console.log('Default Points:', defaultPoints);
-      console.log('Total Points:', totalPoints);
-      setOpacity(0);
-      setTimerVisible(false);
-      setSubmitClicked(true);
-      console.log('current:', currentTask);
-      if (!completedTasksArr.includes(currentTaskIndex)) {
-        setCompletedTasksArr([...completedTasksArr, currentTaskIndex]);
-        setFinishedTasks((prev) => prev + 1);
+  // const handleSubmitClick = async () => {
+  //   const isValid = await taskValidator();
+  //   if (!isValid && userAnswer === false) {
+  //     resetTimer();
+  //     setOpacity(0);
+  //     setTimerVisible(false);
+  //     setSubmitClicked(true);
+  //     // console.log('Wrong Answer');
+  //   } else {
+  //     stopTimer();
+  //     console.log('Default Points:', defaultPoints);
+  //     console.log('Total Points:', totalPoints);
+  //     setOpacity(0);
+  //     setTimerVisible(false);
+  //     setSubmitClicked(true);
+  //     console.log('current:', currentTask);
+  //     if (!completedTasksArr.includes(currentTaskIndex)) {
+  //       setCompletedTasksArr([...completedTasksArr, currentTaskIndex]);
+  //       setFinishedTasks((prev) => prev + 1);
 
-        // send score to the backend
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/scores`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authUser.accessToken}`
-          },
-          body: JSON.stringify({
-            user: authUser,
-            task: currentTask,
-            points: totalPoints
-          })
-        });
+  //       // send score to the backend
+  //       const response = await fetch(`${process.env.REACT_APP_BACKEND}/scores`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: `Bearer ${authUser.accessToken}`
+  //         },
+  //         body: JSON.stringify({
+  //           user: authUser,
+  //           task: currentTask,
+  //           points: totalPoints
+  //         })
+  //       });
 
-        if (!response.ok) {
-          console.error('Error sending score to backend');
-        }
-      }
-    }
-  };
+  //       if (!response.ok) {
+  //         console.error('Error sending score to backend');
+  //       }
+  //     }
+  //   }
+  // };
 
   const handleNextClick = () => {
     const nextIndex =
