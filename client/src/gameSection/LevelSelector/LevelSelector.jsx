@@ -1,4 +1,5 @@
 import { useEffect, useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import useAuthUser from '../../auth/hooks/useAuthUser';
 import { GameContext } from '../Context/GameContext';
 import './LevelSelector.css';
@@ -29,6 +30,7 @@ function LevelSelector() {
   } = useContext(GameContext);
 
   const { authUser } = useAuthUser();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     async function fetchData() {
@@ -92,6 +94,11 @@ function LevelSelector() {
     setSubmitClicked(false);
     setUserAnswer(false);
   }
+
+  useEffect(() => {
+    const level = searchParams.get('level');
+    handleLevelChange(level);
+  }, []);
 
   return (
     <div className={levelBtnClass}>

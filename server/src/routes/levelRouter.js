@@ -21,12 +21,15 @@ levelRouter.post('/add', async (req, res, next) => {
 
 levelRouter.delete('/delete', async (req, res, next) => {
   try {
-    const { name } = req.body;
-    if (name) {
+    const { id, name } = req.body;
+    if (id) {
+      await Level.findByIdAndDelete(id);
+      res.json({ msg: `level deleted` });
+    } else if (name) {
       await Level.findOneAndDelete({ name });
       res.json({ msg: `level deleted` });
     } else {
-      res.send(createError(401, 'missing name'));
+      res.send(createError(401, 'missing id or name'));
     }
   } catch (error) {
     next(createError(401, error.message));

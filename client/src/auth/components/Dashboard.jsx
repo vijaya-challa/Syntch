@@ -20,14 +20,38 @@ import CircularProgressWithLabel from 'common/components/CircularProgressWithLab
 import * as uuid from 'uuid';
 
 import { useEffect, useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [levels, setLevels] = useState([]);
+  const navigate = useNavigate();
+
   const getLevels = () => {
     return [
-      { title: 'Beginner', totalTasks: 15, finishedTasks: 15, currentScore: 50, maxScore: 300 },
-      { title: 'Intermediate', totalTasks: 15, finishedTasks: 5, currentScore: 20, maxScore: 500 },
-      { title: 'Advanced', totalTasks: 15, finishedTasks: 0, currentScore: 0, maxScore: 800 }
+      {
+        title: 'Beginner',
+        totalTasks: 15,
+        finishedTasks: 15,
+        currentScore: 50,
+        maxScore: 300,
+        level: 'beginner'
+      },
+      {
+        title: 'Intermediate',
+        totalTasks: 15,
+        finishedTasks: 5,
+        currentScore: 20,
+        maxScore: 500,
+        level: 'intermediate'
+      },
+      {
+        title: 'Advanced',
+        totalTasks: 15,
+        finishedTasks: 0,
+        currentScore: 0,
+        maxScore: 800,
+        level: 'advanced'
+      }
     ];
   };
 
@@ -35,6 +59,15 @@ function Dashboard() {
     const l = getLevels();
     setLevels(l);
   }, []);
+
+  const play = (level) => {
+    navigate({
+      pathname: '/tasksection',
+      search: createSearchParams({
+        level
+      }).toString()
+    });
+  };
 
   return (
     <Box
@@ -56,9 +89,9 @@ function Dashboard() {
                 title={level.title}
                 titleTypographyProps={{ color: 'secondary', fontWeight: 'bold' }}
               />
-              <CardContent>
+              {/* <CardContent>
                 <Typography variant="h6">Lorem ipsum dolor sit amet.</Typography>
-              </CardContent>
+              </CardContent> */}
               <CardContent>
                 <TableContainer>
                   <Table
@@ -105,7 +138,10 @@ function Dashboard() {
               </CardContent>
             </CardActionArea>
             <CardActions sx={{ display: 'flex', justifyContent: 'space-around' }}>
-              {level.finishedTasks === 0 ? (
+              <Button variant="contained" onClick={() => play(level.level)}>
+                PLAY
+              </Button>
+              {/* {level.finishedTasks === 0 ? (
                 <Button variant="contained">Play</Button>
               ) : level.finishedTasks === level.totalTasks ? (
                 <Button variant="contained">Replay</Button>
@@ -114,7 +150,7 @@ function Dashboard() {
                   <Button variant="contained">Resume</Button>
                   <Button variant="contained">Reset</Button>
                 </>
-              )}
+              )} */}
             </CardActions>
           </Card>
         );
