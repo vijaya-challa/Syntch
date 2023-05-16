@@ -1,0 +1,25 @@
+.homeContainer {
+  background-color: #2c3291;
+  height: 300px;
+
+  img {
+    margin-top: 1.25rem;
+  }
+
+  .smurf {
+    height: 50px;
+    width: auto;
+  }
+
+  .openerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+
+    .opener {
+      width: 90px;
+      margin: 0.1rem;
+    }
+  }
+}
