@@ -9,7 +9,7 @@ function RequireAuth({ allowedRoles }) {
   ) : authUser?.email ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/landingpage" state={{ from: location }} replace />
   );
 }
 
