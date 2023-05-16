@@ -17,6 +17,8 @@ import Help from './common/components/Help';
 import Admin from './auth/components/admin/Admin';
 import Tasks from './auth/components/admin/Tasks';
 import Levels from './auth/components/admin/Levels';
+import Home from './components/Home/Home';
+import HowPlay from './components/HowPlay/HowPlay';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* PUBLIC routes */}
         <Route path="login" element={<SignIn />} />
+        <Route path="landingpage" element={<Home />} />
+        <Route path="howtoplay" element={<HowPlay />} />
         <Route path="register" element={<SignUp />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="tasksection" element={<TaskSection />} />
