@@ -11,7 +11,7 @@ function Home() {
       <h5>Syntch Home Component</h5>
 
       <div className="openerContainer">
-        <NavLink to="/HowPlay">
+        <NavLink to="/howtoplay">
           <button className="opener">How To Play</button>
         </NavLink>
 
