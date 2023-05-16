@@ -23,8 +23,8 @@ const pages = [
     adminRouter: false
   },
   {
-    label: 'Help',
-    route: '/help',
+    label: 'How To Play',
+    route: '/howtoplay',
     adminRoute: false
   },
   {
