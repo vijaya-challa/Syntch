@@ -34,15 +34,15 @@ function Layout() {
             ? {
                 // palette values for light mode
                 background: {
-                  paper: '#81d4fa',
-                  default: '#b3e5fc'
+                  paper: '#95b7b7',
+                  default: '#b3cbcb'
+                },
+                primary: {
+                  // light: '#757ce8',
+                  main: '#5c8a8a'
+                  // dark: '#002884',
+                  // contrastText: '#fff'
                 }
-                // primary: {
-                //   light: '#757ce8',
-                //   main: '#3f50b5',
-                //   dark: '#002884',
-                //   contrastText: '#fff'
-                // },
                 // secondary: {
                 //   light: '#ff7961',
                 //   main: '#f44336',
