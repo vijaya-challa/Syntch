@@ -177,7 +177,7 @@ function Users() {
                   <Typography variant="h6">Roles</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography variant="h6">Action</Typography>
+                  <Typography variant="h6">Admin</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>

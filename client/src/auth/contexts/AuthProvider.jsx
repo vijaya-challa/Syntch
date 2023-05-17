@@ -3,10 +3,10 @@ import { signOut } from 'firebase/auth';
 import auth from 'firebaseConfig';
 import ROLES from '../Roles';
 
-const AuthContext = createContext({});
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [authUser, setAuthUser] = useState({});
+  const [authUser, setAuthUser] = useState();
   const [authError, setAuthError] = useState();
 
   const userSignOut = async () => {

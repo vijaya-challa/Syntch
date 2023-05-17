@@ -24,8 +24,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* PUBLIC routes */}
-        <Route path="login" element={<SignIn />} />
         <Route path="landingpage" element={<Home />} />
+        <Route path="login" element={<SignIn />} />
         <Route path="howtoplay" element={<HowPlay />} />
         <Route path="register" element={<SignUp />} />
         <Route path="unauthorized" element={<Unauthorized />} />
