@@ -198,10 +198,9 @@ const TaskSection = () => {
   // };
 
   const handleNextClick = () => {
-    const nextIndex =
-      currentTaskIndex === data[selectedLevel].length - 1 ? 0 : currentTaskIndex + 1;
+    const nextIndex = currentTaskIndex === data.tasks.length - 1 ? 0 : currentTaskIndex + 1;
     setCurrentTaskIndex(nextIndex);
-    setCurrentTask(data[selectedLevel][nextIndex][`task${nextIndex + 1}`]);
+    setCurrentTask(data.tasks[nextIndex]);
     setExerciseGenerated(false); //task with input field no longer visible
     setBlanks(''); //reset the input field to 0
     setShowSnippet(false); //task snippet no longer visible
@@ -215,10 +214,8 @@ const TaskSection = () => {
   };
 
   const handlePreviousClick = () => {
-    setCurrentTaskIndex(
-      currentTaskIndex === 0 ? data[selectedLevel].length - 1 : currentTaskIndex - 1
-    );
-    setCurrentTask(data[selectedLevel][currentTaskIndex][`task${currentTaskIndex + 1}`]);
+    setCurrentTaskIndex(currentTaskIndex === 0 ? data.tasks.length - 1 : currentTaskIndex - 1);
+    setCurrentTask(data.tasks[currentTaskIndex]);
     setExerciseGenerated(false);
     setBlanks('');
     setShowSnippet(false);
@@ -262,7 +259,7 @@ const TaskSection = () => {
   const isPrevDisabled = currentTaskIndex === 0; //previous btn is disabled at index 0
   const prevButtonClass = isPrevDisabled ? 'disabled' : 'active'; //previous btn is enabled at index > 0
 
-  const tasksCount = data && data[selectedLevel] ? data[selectedLevel].length : 0;
+  const tasksCount = data && data.levels ? data.levels.length : 0;
   const isNextDisabled = currentTaskIndex === tasksCount - 1;
   const nextButtonClass = isNextDisabled ? 'disabled' : 'active';
 
