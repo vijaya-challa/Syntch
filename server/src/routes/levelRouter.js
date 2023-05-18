@@ -1,6 +1,7 @@
 import express from 'express';
 import createError from 'http-errors';
 import Level from '../models/Level.js';
+import Task from '../models/Task.js';
 
 const levelRouter = express.Router();
 
@@ -40,6 +41,22 @@ levelRouter.get('/all', async (req, res, next) => {
   try {
     const levels = await Level.find({});
     res.json(levels);
+  } catch (error) {
+    next(createError(401, error.message));
+  }
+});
+
+levelRouter.post('/tasks', async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const level = await Level.findOne({ name: req.body.name });
+
+    // eslint-disable-next-line no-underscore-dangle
+    const tasks = await Task.find({ level: level._id });
+    // eslint-disable-next-line no-underscore-dangle
+    const resObj = { level: level.name, _id: level._id, tasks };
+    console.log(resObj);
+    res.json(resObj);
   } catch (error) {
     next(createError(401, error.message));
   }

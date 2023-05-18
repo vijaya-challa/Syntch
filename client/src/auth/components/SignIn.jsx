@@ -2,7 +2,7 @@ import { useState } from 'react';
 import auth from 'firebaseConfig';
 import { getAdditionalUserInfo, signInWithEmailAndPassword } from 'firebase/auth';
 import GoogleSignIn from 'auth/components/GoogleSignIn';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import GithubSignIn from 'auth/components/GithubSignIn';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -15,6 +15,7 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { authError, setAuthError } = useAuthUser();
+  const navigate = useNavigate();
 
   const signIn = async (e) => {
     e.preventDefault();
@@ -31,7 +32,14 @@ function SignIn() {
 
   return (
     <div>
-      <Box sx={{ width: 400, height: 550, backgroundColor: '#555555', m: 4 }}>
+      <Box
+        sx={{
+          mt: 2,
+          pr: 3,
+          pl: 3,
+          bgcolor: 'background.paper',
+          borderRadius: 2
+        }}>
         <AuthDetails />
 
         <div className="container">
@@ -52,21 +60,43 @@ function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"
             />
-            <Button variant="contained" size="medium" type="submit">
+            <Button variant="contained" size="medium" type="submit" sx={{ mb: 2 }}>
               Login
             </Button>
           </form>
           <div>Or</div>
+          <Box>
+            <GoogleSignIn />
+            <GithubSignIn />
+          </Box>
+          <div>Or</div>
+          <Box sx={{ mb: 2 }}>
+            <div>
+              Do you want to create an account?{' '}
+              <Button
+                variant="text"
+                color="primary"
+                sx={{ fontSize: 18, fontWeight: 'bold' }}
+                onClick={() => {
+                  navigate('/register');
+                }}>
+                Register
+              </Button>
+            </div>
 
-          <GoogleSignIn />
-          <GithubSignIn />
+            {/* <NavLink to="/register">Register</NavLink> */}
+          </Box>
           <div>Or</div>
-          <div>
-            <div>Do you want to create an account?</div>
-            <NavLink to="/register">Register</NavLink>
-          </div>
-          <div>Or</div>
-          <NavLink to="/tasksection">TRY</NavLink>
+          <Button
+            variant="text"
+            color="primary"
+            sx={{ mb: 2, mt: 2, fontSize: 18, fontWeight: 'bold' }}
+            onClick={() => {
+              navigate('/tasksection');
+            }}>
+            Try
+          </Button>
+          {/* <NavLink to="/tasksection">TRY</NavLink> */}
         </div>
       </Box>
       {authError ? (

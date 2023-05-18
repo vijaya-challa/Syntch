@@ -10,6 +10,7 @@ function LevelSelector() {
     selectedLevel,
     setSelectedLevel,
     currentTaskIndex,
+    setCurrentTaskIndex,
     setCurrentTask,
     setExerciseGenerated,
     setBlanks,
@@ -27,7 +28,7 @@ function LevelSelector() {
     levelBtnClass,
     levelBtnStyle,
     setUserAnswer,
-    totalTasks,
+    // totalTasks,
     setTotalTasks
   } = useContext(GameContext);
   const [searchParams] = useSearchParams();
@@ -36,26 +37,37 @@ function LevelSelector() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/levels?${selectedLevel}`, {
-          method: 'GET',
-          mode: 'cors'
-          // headers: {
-          //   'Content-Type': 'application/json',
-          //   Authorization: `Bearer ${authUser.accessToken}`
-          // }
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/tasks`, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+            // Authorization: `Bearer ${authUser.accessToken}`
+          },
+          body: JSON.stringify({ name: selectedLevel })
         });
         const data = await response.json();
         console.log(data);
-        console.log(selectedLevel);
-        console.log(data[selectedLevel]);
+        // const response = await fetch(`${process.env.REACT_APP_BACKEND}/levels?${selectedLevel}`, {
+        //   method: 'GET',
+        //   mode: 'cors'
+        //   // headers: {
+        //   //   'Content-Type': 'application/json',
+        //   //   Authorization: `Bearer ${authUser.accessToken}`
+        //   // }
+        // });
+        // const data = await response.json();
+        // console.log(data);
+
+        // console.log(data[selectedLevel]);
         setData(data);
-        console.log(data.beginner.length);
+        // console.log(data.beginner.length);
         if (selectedLevel) {
-          setCurrentTask(data[selectedLevel][currentTaskIndex][`task${currentTaskIndex + 1}`]);
-          setTotalTasks(selectedLevel.length);
-          console.log(currentTaskIndex);
-          console.log('SL:', selectedLevel.length);
-          console.log(totalTasks);
+          setCurrentTask(data.tasks[currentTaskIndex]);
+          setTotalTasks(data.tasks.length);
+          // console.log(currentTaskIndex);
+          // console.log('SL:', selectedLevel.length);
+          // console.log(totalTasks);
         }
       } catch (err) {
         console.log(err);
@@ -68,6 +80,7 @@ function LevelSelector() {
 
   function handleLevelChange(level) {
     // console.log('Level changed to', level);
+    setCurrentTaskIndex(0);
     setSelectedLevel(level);
     let newClass = 'levelsBtn';
     if (level === 'beginner' || level === 'intermediate' || level === 'advanced') {
