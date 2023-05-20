@@ -7,9 +7,9 @@ const levelRouter = express.Router();
 
 levelRouter.post('/add', async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { name, timerCount, blanksCount, defaultPoints } = req.body;
     if (name) {
-      const level = new Level({ name });
+      const level = new Level({ name, timerCount, blanksCount, defaultPoints });
       await level.save();
       res.json({ msg: `level added`, level });
     } else {

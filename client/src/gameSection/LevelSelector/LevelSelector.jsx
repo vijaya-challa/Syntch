@@ -48,17 +48,6 @@ function LevelSelector() {
         });
         const data = await response.json();
         console.log(data);
-        // const response = await fetch(`${process.env.REACT_APP_BACKEND}/levels?${selectedLevel}`, {
-        //   method: 'GET',
-        //   mode: 'cors'
-        //   // headers: {
-        //   //   'Content-Type': 'application/json',
-        //   //   Authorization: `Bearer ${authUser.accessToken}`
-        //   // }
-        // });
-        // const data = await response.json();
-        // console.log(data);
-
         // console.log(data[selectedLevel]);
         setData(data);
         // console.log(data.beginner.length);
