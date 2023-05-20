@@ -7,14 +7,12 @@ const taskRouter = express.Router();
 taskRouter.post('/add', async (req, res, next) => {
   try {
     const { description, snippet, level } = req.body;
-    console.log(req.body);
     let task;
     if (level) {
       task = new Task({ description, snippet, level });
     } else {
       task = new Task({ description, snippet });
     }
-    console.log(task);
     await task.save();
     res.json({ msg: `task added`, task });
   } catch (error) {

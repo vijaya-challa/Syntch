@@ -34,7 +34,15 @@ function EditProfile() {
   };
 
   return (
-    <Box sx={{ width: 400, height: 500, backgroundColor: '#555555', m: 4 }}>
+    <Box
+      sx={{
+        mt: 2,
+        pr: 3,
+        pl: 3,
+        pb: 3,
+        bgcolor: 'action.disabledBackground',
+        borderRadius: 2
+      }}>
       <div className="container signup">
         <form
           onSubmit={(e) => {
@@ -72,11 +80,11 @@ function EditProfile() {
             Update
           </Button>
           <Button
-            variant="text"
+            variant="contained"
+            color="warning"
             size="medium"
             sx={{ mt: 5 }}
-            onClick={deleteHandler}
-            style={{ color: 'tomato' }}>
+            onClick={deleteHandler}>
             Delete My Account
           </Button>
         </form>

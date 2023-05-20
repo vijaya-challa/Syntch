@@ -4,12 +4,12 @@ import auth from 'firebaseConfig';
 // import SignOut from 'auth/components/SignOut';
 import useAuthUser from 'auth/hooks/useAuthUser';
 import ROLES from 'auth/Roles';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Dashboard from 'auth/components/Dashboard';
 // import { Avatar } from '@mui/material';
 
 function AuthDetails() {
-  const { authUser, setAuthUser, isAdmin } = useAuthUser();
+  const { authUser, setAuthUser } = useAuthUser();
 
   const navigate = useNavigate();
 
@@ -31,10 +31,6 @@ function AuthDetails() {
           console.log(err);
         }
         setAuthUser({ ...user, roles });
-        // user.getIdToken().then((token) => {
-        //   fetchData(token);
-        // });
-
         navigate('/');
       } else {
         setAuthUser(null);
@@ -43,23 +39,7 @@ function AuthDetails() {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <div>
-      {authUser ? (
-        <>
-          <Dashboard />
-          <div>
-            <NavLink to="/tasksection">Task Section</NavLink>
-          </div>
-          {isAdmin() ? (
-            <div>
-              <NavLink to="/admin">Admin Section</NavLink>
-            </div>
-          ) : undefined}
-        </>
-      ) : undefined}
-    </div>
-  );
+  return <div>{authUser ? <Dashboard /> : undefined}</div>;
 }
 
 export default AuthDetails;
