@@ -52,6 +52,9 @@ function LevelSelector() {
         setData(data);
         // console.log(data.beginner.length);
         if (selectedLevel) {
+          setDelay(data.timerCount); // countdown value
+          setNumBlanks(data.blanksCount); // input fields number
+          setDefaultPoints(data.defaultPoints);
           setCurrentTask(data.tasks[currentTaskIndex]);
           setTotalTasks(data.tasks.length);
           // console.log(currentTaskIndex);
@@ -76,20 +79,7 @@ function LevelSelector() {
       newClass += ' newPosition';
     }
     setLevelBtnClass(newClass);
-    if (level === 'beginner') {
-      setDelay(4000); // countdown value
-      setNumBlanks(3); // input fields number
-      setDefaultPoints(5);
-      // setLevelBtnClass('newPosition');
-    } else if (level === 'intermediate') {
-      setDelay(2000);
-      setNumBlanks(5);
-      setDefaultPoints(7);
-    } else if (level === 'advanced') {
-      setDelay(1000);
-      setNumBlanks(7);
-      setDefaultPoints(13);
-    }
+
     setExerciseGenerated(false); // task with input field no longer visible
     setBlanks(''); // reset the input field to 0
     setShowSnippet(false); // task snippet no longer visible
@@ -103,7 +93,7 @@ function LevelSelector() {
   }
 
   useEffect(() => {
-    const level = searchParams.get('level');
+    const level = searchParams.get('level') || 'beginner';
     handleLevelChange(level);
   }, []);
 

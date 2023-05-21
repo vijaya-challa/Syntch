@@ -53,9 +53,17 @@ levelRouter.post('/tasks', async (req, res, next) => {
 
     // eslint-disable-next-line no-underscore-dangle
     const tasks = await Task.find({ level: level._id });
-    // eslint-disable-next-line no-underscore-dangle
-    const resObj = { level: level.name, _id: level._id, tasks };
-    console.log(resObj);
+
+    const resObj = {
+      level: level.name,
+      timerCount: level.timerCount,
+      blanksCount: level.blanksCount,
+      defaultPoints: level.defaultPoints,
+      // eslint-disable-next-line no-underscore-dangle
+      _id: level._id,
+      tasks
+    };
+    // console.log(resObj);
     res.json(resObj);
   } catch (error) {
     next(createError(401, error.message));
