@@ -25,11 +25,12 @@ function Levels() {
   const [blanksCount, setBlanksCount] = useState('');
   const [defaultPoints, setDefaultPoints] = useState('');
 
-  const { authUser } = useAuthUser();
+  const { authUser, setLoading } = useAuthUser();
   const { enqueueSnackbar } = useSnackbar();
 
   const updateLevels = async () => {
     async function fetchData() {
+      setLoading(true);
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/all`, {
           method: 'GET',
@@ -44,6 +45,7 @@ function Levels() {
         console.log(err);
         enqueueSnackbar('Failed to update Levels. Something went wrong', { variant: 'error' });
       }
+      setLoading(false);
     }
     fetchData();
   };
@@ -53,6 +55,7 @@ function Levels() {
   }, []);
 
   const addLevel = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/add`, {
         method: 'POST',
@@ -78,7 +81,7 @@ function Levels() {
       console.log(err);
       enqueueSnackbar('Failed to add level. Something went wrong.', { variant: 'error' });
     }
-
+    setLoading(false);
     updateLevels();
   };
 
@@ -104,6 +107,7 @@ function Levels() {
   // };
 
   const removeLevelById = async (id) => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/delete`, {
         method: 'DELETE',
@@ -120,7 +124,7 @@ function Levels() {
       console.log(err);
       enqueueSnackbar('Failed to remove level. Something went wrong.', { variant: 'error' });
     }
-
+    setLoading(false);
     updateLevels();
   };
 

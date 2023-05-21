@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [authUser, setAuthUser] = useState();
   const [authError, setAuthError] = useState();
+  const [loading, setLoading] = useState(false);
 
   const userSignOut = async () => {
     try {
@@ -43,7 +44,9 @@ export function AuthProvider({ children }) {
         addUserToBackEnd,
         authError,
         setAuthError,
-        isAdmin
+        isAdmin,
+        loading,
+        setLoading
       }}>
       {children}
     </AuthContext.Provider>
