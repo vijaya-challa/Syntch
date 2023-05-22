@@ -12,7 +12,7 @@ import './TaskSection.css';
 import AuthContext from '../../auth/contexts/AuthProvider.jsx';
 import Modal from '../GuestMsgModal/Modal.jsx';
 
-let render = 0;
+// let render = 0;
 
 const TaskSection = () => {
   const {
@@ -52,10 +52,7 @@ const TaskSection = () => {
     acceptedTasks,
     setAcceptedTasks,
     modalOpen,
-    setModalOpen,
-    setFinishedTasks,
-    completedTasksArr,
-    setCompletedTasksArr
+    setModalOpen
   } = useContext(GameContext);
 
   const { authUser } = useContext(AuthContext);
@@ -104,14 +101,14 @@ const TaskSection = () => {
 
   useEffect(() => {
     if (timeBonus > 0) {
+      // setTimeBonus(timeBonus)
       setTotalPoints(defaultPoints + timeBonus);
     } else {
       setTotalPoints(defaultPoints);
     }
-    // setTimeBonus(timeBonus)
-    // setTotalPoints(totalPoints)
+    // setTotalPoints(totalPoints);
     console.log('TB:', timeBonus);
-    // console.log('Default Points:', defaultPoints);
+    console.log('Default Points:', defaultPoints);
     console.log('Total Points:', totalPoints);
   }, [timeBonus, totalPoints]);
 
@@ -122,80 +119,52 @@ const TaskSection = () => {
       setOpacity(0);
       setTimerVisible(false);
       setSubmitClicked(true);
-      // console.log('Wrong Answer');
     } else {
       stopTimer();
-      console.log('Default Points:', defaultPoints);
-      console.log('Total Points:', totalPoints);
       setOpacity(0);
       setTimerVisible(false);
       setSubmitClicked(true);
-      // setFinishedTasks(+1);
+      console.log('Default Points:', defaultPoints);
+      console.log('Total Points:', totalPoints);
+      console.log('current:', currentTask);
+      setTotalPoints((prevPoints) => prevPoints);
     }
   };
 
-  // const handleSubmitClick = async () => {
-  //   const isValid = await taskValidator();
-  //   if (!isValid && userAnswer === false) {
-  //     resetTimer();
-  //     setOpacity(0);
-  //     setTimerVisible(false);
-  //     setSubmitClicked(true);
-  //     // console.log('Wrong Answer');
-  //   } else {
-  //     stopTimer();
-  //     console.log('Default Points:', defaultPoints);
-  //     console.log('Total Points:', totalPoints);
-  //     setOpacity(0);
-  //     setTimerVisible(false);
-  //     setSubmitClicked(true);
-  //     if (!completedTasksArr.includes(currentTaskIndex)) {
-  //       setCompletedTasksArr([...completedTasksArr, currentTaskIndex]);
-  //       setFinishedTasks((prev) => prev + 1);
-  //     }
-  //   }
-  // };
+  useEffect(() => {
+    if (authUser && userAnswer === true) {
+      const sendScore = async () => {
+        const payload = {
+          user: authUser.uid,
+          task: {
+            selectedLevel: selectedLevel,
+            currentTaskIndex: currentTaskIndex + 1
+          },
+          points: totalPoints
+        };
 
-  // const handleSubmitClick = async () => {
-  //   const isValid = await taskValidator();
-  //   if (!isValid && userAnswer === false) {
-  //     resetTimer();
-  //     setOpacity(0);
-  //     setTimerVisible(false);
-  //     setSubmitClicked(true);
-  //     // console.log('Wrong Answer');
-  //   } else {
-  //     stopTimer();
-  //     console.log('Default Points:', defaultPoints);
-  //     console.log('Total Points:', totalPoints);
-  //     setOpacity(0);
-  //     setTimerVisible(false);
-  //     setSubmitClicked(true);
-  //     console.log('current:', currentTask);
-  //     if (!completedTasksArr.includes(currentTaskIndex)) {
-  //       setCompletedTasksArr([...completedTasksArr, currentTaskIndex]);
-  //       setFinishedTasks((prev) => prev + 1);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/activity/add`, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authUser.accessToken}`
+          },
+          body: JSON.stringify(payload)
+        });
 
-  //       // send score to the backend
-  //       const response = await fetch(`${process.env.REACT_APP_BACKEND}/scores`, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${authUser.accessToken}`
-  //         },
-  //         body: JSON.stringify({
-  //           user: authUser,
-  //           task: currentTask,
-  //           points: totalPoints
-  //         })
-  //       });
+        console.log('Payload:', payload);
 
-  //       if (!response.ok) {
-  //         console.error('Error sending score to backend');
-  //       }
-  //     }
-  //   }
-  // };
+        if (!response.ok) {
+          console.error('Error sending score to backend');
+        }
+      };
+
+      if (submitClicked) {
+        sendScore();
+      }
+    }
+  }, [totalPoints]);
 
   const handleNextClick = () => {
     const nextIndex = currentTaskIndex === data.tasks.length - 1 ? 0 : currentTaskIndex + 1;
@@ -236,9 +205,6 @@ const TaskSection = () => {
       inputs.forEach((input) => {
         const inputValue = input.value.trim();
         const originalValue = input.getAttribute('data-original-value');
-
-        // console.log('Input value:', inputValue);
-        // console.log('Original value:', originalValue);
 
         if (inputValue !== originalValue) {
           allInputsValid = false;

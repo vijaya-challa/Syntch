@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import syntch_logo from '../../assets/images/syntch_logo.png';
 import { Button, ButtonGroup } from '@mui/material';
+import LogoAnimation from 'gameSection/LogoAnimation/LogoAnimation';
 
 function Home() {
   const navigate = useNavigate();
@@ -19,7 +20,8 @@ function Home() {
         bgcolor: 'background.paper',
         borderRadius: 2
       }}>
-      <img src={syntch_logo} alt="Syntch Logo" style={{ color: 'white', width: '250px' }} />
+      {/* <img src={syntch_logo} alt="Syntch Logo" style={{ color: 'white', width: '250px' }} /> */}
+      <LogoAnimation/>
 
       <ButtonGroup variant="text" color="secondary" sx={{ mt: 2 }}>
         <Button onClick={() => navigate('/howtoplay')}>How To Play</Button>
