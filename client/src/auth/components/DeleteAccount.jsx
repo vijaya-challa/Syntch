@@ -58,7 +58,15 @@ function DeleteAccount() {
 
   return (
     <div className="container">
-      <Box sx={{ width: 400, height: 500, backgroundColor: '#555555', m: 4 }}>
+      <Box
+        sx={{
+          mt: 2,
+          pr: 3,
+          pl: 3,
+          pb: 3,
+          bgcolor: 'action.disabledBackground',
+          borderRadius: 2
+        }}>
         <div className="container signup">
           <form
             onSubmit={(e) => {
@@ -78,7 +86,7 @@ function DeleteAccount() {
               />
             ) : undefined}
 
-            <Button variant="contained" size="medium" type="submit" sx={{ mt: 5 }}>
+            <Button variant="contained" color="warning" size="medium" type="submit" sx={{ mt: 5 }}>
               Delete
             </Button>
           </form>

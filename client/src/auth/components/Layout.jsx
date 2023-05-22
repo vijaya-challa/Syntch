@@ -16,7 +16,7 @@ import { createContext, useState, useMemo } from 'react';
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 function Layout() {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState('dark');
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
