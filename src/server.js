@@ -33,7 +33,7 @@ app.use("/score", scoreRouter);
 app.get("*", (req, res) => {
   res.sendFile(join(__dirname, "../build/index.html"));
 });
-const port = process.env.PORT || 8001;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`:+1: Server is running on http://localhost:${port}`);
 });
