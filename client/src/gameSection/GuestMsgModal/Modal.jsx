@@ -9,16 +9,18 @@ const Modal = ({ show, handleClose }) => {
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
-        <p>As a <span>Guest</span> you can access only <span>3</span> tasks</p>
         <p>
-          Please{' '}
-          <Link to="/" onClick={handleClose}>
+          As a <span>Guest</span> you can access only <span>3</span> tasks
+        </p>
+        <p>
+          Please
+          <Link to="/login" onClick={handleClose}>
             Log In
-          </Link>{' '}
-          or{' '}
-          <Link to="/" onClick={handleClose}>
+          </Link>
+          or
+          <Link to="/register" onClick={handleClose}>
             Register
-          </Link>{' '}
+          </Link>
           to continue
         </p>
       </section>

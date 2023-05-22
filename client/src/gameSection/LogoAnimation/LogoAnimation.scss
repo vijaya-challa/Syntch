@@ -1,0 +1,188 @@
+@mixin linePlus {
+  position: absolute;
+    opacity: 0;
+  animation: ropen 2s ease-in-out forwards;
+}
+
+@mixin slide {
+  position: relative;
+    opacity: 0;
+  animation: slide 2s ease-in forwards;
+}
+
+.animationContainer {
+  width: 100%;
+  height: 10rem;
+  margin: 0 auto;
+  // top: 30vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // opacity: 0;
+  // background-color: rgb(35, 59, 80);
+}
+
+.line {
+  width: 4rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // transform: scale(.8)
+  // position: relative;
+  // display: flex;
+  // border: 1px solid red;
+}
+
+.sLine {
+  @include slide;
+  transform: translateX(25px);
+}
+.sLine1 {
+  @include linePlus;
+  transform: translate3D(15px, -50px, 0);
+}
+.sLine2 {
+  @include linePlus;
+  transform: translate3D(5px, -10px, 0) rotate(45deg);
+}
+.sLine3 {
+  @include linePlus;
+  transform: translate3D(0px, -5px, 0) rotate(45deg);
+}
+.sLine4 {
+  @include linePlus;
+  transform: translate3D(-15px, 32px, 0);
+}
+// Y ******************
+.yLine {
+  @include slide;
+  transform: translateX(35px);
+}
+.yLine1 {
+  @include linePlus;
+  transform: translate3D(-13px, 10px, 0) rotate(60deg);
+}
+.yLine2 {
+  @include linePlus;
+  transform: translate3D(6px, 10px, 0) rotate(-60deg);
+}
+.yLine3 {
+  @include linePlus;
+  transform: translate3D(0px, 30px, 0) rotate(-60deg);
+}
+// N ******************
+.nLine {
+  @include slide;
+  transform: translateX(25px);
+}
+.nLine1 {
+  @include linePlus;
+  transform: translate3D(-22px, 8px, 0) rotate(-60deg);
+}
+.nLine2 {
+  @include linePlus;
+  transform: translate3D(-13px, 10px, 0) rotate(-60deg);
+}
+.nLine3 {
+  @include linePlus;
+  transform: translate3D(20px, 10px, 0) rotate(60deg);
+}
+// T ******************
+.tLine {
+  @include slide;
+  transform: translateX(25px);
+}
+.tLine1 {
+  @include linePlus;
+  transform: translate3D(-15px, -31px, 0) rotate(-90deg);
+}
+.tLine2 {
+  @include linePlus;
+  transform: translate3D(0px, -22px, 0);
+}
+.tLine3 {
+  @include linePlus;
+  transform: translate3D(-25px, -17px, 0);
+}
+.tLine4 {
+  @include linePlus;
+  transform: translate3D(-15px, 10px, 0) rotate(-90deg);
+}
+// C ******************
+.cLine {
+  @include slide;
+  transform: translateX(5px);
+}
+.cLine1 {
+  @include linePlus;
+  transform: translate3D(-13px, -5px, 0) rotate(-30deg);
+}
+.cLine2 {
+  @include linePlus;
+  transform: translate3D(-10px, 18px, 0) rotate(30deg);
+}
+// H ******************
+.hLine {
+  @include slide;
+  // transform: translateX(-5px);
+}
+.hLine1 {
+  @include linePlus;
+  transform: translate3D(-15px, -8px, 0) rotate(-60deg);
+}
+.hLine2 {
+  @include linePlus;
+  transform: translate3D(-15px, 10px, 0) rotate(-60deg);
+}
+.hLine3 {
+  @include linePlus;
+  transform: translate3D(17px, 10px, 0) rotate(60deg);
+}
+
+@keyframes ropen {
+  from {
+    position: absolute;
+    transform: rotateY(90deg);
+  }
+  50% {
+    position: absolute;
+    transform: rotateY(5deg);
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  from {
+    position: absolute;
+  }
+  50% {
+    position: relative;
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (width < 600px) {
+  .animationContainer {
+    transform: scale(0.9);
+  }
+}
+
+@media (width < 500px) {
+  .animationContainer {
+    transform: scale(0.8);
+  }
+}
+
+@media (width < 400px) {
+  .animationContainer {
+    transform: scale(0.7);
+  }
+}

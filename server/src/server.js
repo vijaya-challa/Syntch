@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import logger from 'morgan';
 
+import activityRouter from './routes/activityRouter.js';
 import userRouter from './routes/userRouter.js';
 import levelRouter from './routes/levelRouter.js';
 import taskRouter from './routes/taskRouter.js';
@@ -17,6 +18,7 @@ app.use(logger('dev'));
 app.use(cors());
 connectDB();
 
+app.use('/activity', checkAuth, activityRouter);
 app.use('/user', checkAuth, userRouter);
 app.use('/level', levelRouter);
 app.use('/task', taskRouter);

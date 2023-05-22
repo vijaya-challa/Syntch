@@ -32,7 +32,6 @@ function LevelSelector() {
     setTotalTasks
   } = useContext(GameContext);
   const [searchParams] = useSearchParams();
-  // const { authUser } = useAuthUser();
 
   useEffect(() => {
     async function fetchData() {
