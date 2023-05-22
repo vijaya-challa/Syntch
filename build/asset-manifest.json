@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.30b2589d.css",
+    "main.js": "/static/js/main.3f80b143.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/syntch_logo.png": "/static/media/syntch_logo.9f7df0045361fb421311.png",
+    "index.html": "/index.html",
+    "main.30b2589d.css.map": "/static/css/main.30b2589d.css.map",
+    "main.3f80b143.js.map": "/static/js/main.3f80b143.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30b2589d.css",
+    "static/js/main.3f80b143.js"
+  ]
+}

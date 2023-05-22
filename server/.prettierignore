@@ -1,6 +1,0 @@
-# Ignore artifacts:
-build
-coverage
-​
-# Ignore all HTML files: Uncomment the following line if needed
-# *.html
