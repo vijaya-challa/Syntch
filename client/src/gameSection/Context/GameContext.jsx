@@ -5,11 +5,16 @@ export const GameContext = createContext(null);
 
 function GameContextProvider({ children }) {
   const [acceptedTasks, setAcceptedTasks] = useState(3);
+  const [advancedCount, setAdvancedCount] = useState(0);
+  const [advancedPoints, setAdvancedPoints] = useState(0);
+  const [advancedLength, setAdvancedLength] = useState(0);
+  const [beginnerCount, setBeginnerCount] = useState(0);
+  const [beginnerPoints, setBeginnerPoints] = useState(0);
   const [blanks, setBlanks] = useState('');
+  const [beginnerLength, setBeginnerLength] = useState(0);
   const [delay, setDelay] = useState(0);
   const [countdown, setCountdown] = useState(delay / 1000);
   const [countdownVisible, setCountdownVisible] = useState(false);
-  const [completedTasksArr, setCompletedTasksArr] = useState([]);
   const [currentTask, setCurrentTask] = useState(null);
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [data, setData] = useState(null);
@@ -18,7 +23,9 @@ function GameContextProvider({ children }) {
   const [endTime, setEndTime] = useState(null);
   const [exerciseGenerated, setExerciseGenerated] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
-  const [finishedTasks, setFinishedTasks] = useState(0);
+  const [intermediateCount, setIntermediateCount] = useState(0);
+  const [intermediatePoints, setIntermediatePoints] = useState(0);
+  const [intermediateLength, setIntermediateLength] = useState(0);
   const [levelBtnClass, setLevelBtnClass] = useState('levelsBtn');
   const [levelBtnStyle, setLevelBtnStyle] = useState({ backgroundColor: '#ce93d8' });
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,6 +35,7 @@ function GameContextProvider({ children }) {
   const [selectedLevel, setSelectedLevel] = useState('');
   const [showSnippet, setShowSnippet] = useState(false);
   const [startTime, setStartTime] = useState(null);
+  const [userStatistics, setUserStatistics] = useState([]);
   const [submitClicked, setSubmitClicked] = useState(false);
   const [taskAccepted, setTaskAccepted] = useState(false);
   const [timeBonus, setTimeBonus] = useState(0);
@@ -92,6 +100,7 @@ function GameContextProvider({ children }) {
     const elapsedTime = Math.floor(duration - remainingTimeInSeconds);
     const timerBonus = duration - elapsedTime;
     setTimeBonus(timerBonus);
+    setTotalPoints(timerBonus + defaultPoints);
     setRemainingTime(null);
   };
 
@@ -167,10 +176,26 @@ function GameContextProvider({ children }) {
         setModalOpen,
         totalTasks,
         setTotalTasks,
-        finishedTasks,
-        setFinishedTasks,
-        completedTasksArr,
-        setCompletedTasksArr
+        beginnerLength,
+        setBeginnerLength,
+        intermediateLength,
+        setIntermediateLength,
+        advancedLength,
+        setAdvancedLength,
+        beginnerCount,
+        setBeginnerCount,
+        intermediateCount,
+        setIntermediateCount,
+        advancedCount,
+        setAdvancedCount,
+        beginnerPoints,
+        setBeginnerPoints,
+        intermediatePoints,
+        setIntermediatePoints,
+        advancedPoints,
+        setAdvancedPoints,
+        userStatistics,
+        setUserStatistics
       }}>
       {children}
     </GameContext.Provider>
