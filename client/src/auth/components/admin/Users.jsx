@@ -22,11 +22,12 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
 
-  const { authUser } = useAuthUser();
+  const { authUser, setLoading } = useAuthUser();
   const { enqueueSnackbar } = useSnackbar();
 
   const updateUsers = async () => {
     async function fetchData() {
+      setLoading(true);
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/all`, {
           method: 'GET',
@@ -41,6 +42,7 @@ function Users() {
         console.log(err);
         enqueueSnackbar('Failed to update Users. Something went wrong', { variant: 'error' });
       }
+      setLoading(false);
     }
 
     fetchData();
@@ -51,6 +53,7 @@ function Users() {
   }, []);
 
   const addAdminRole = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/admin-add`, {
         method: 'POST',
@@ -67,11 +70,12 @@ function Users() {
       console.log(err);
       enqueueSnackbar('Failed to add admin. Something went wrong.', { variant: 'error' });
     }
-
+    setLoading(false);
     updateUsers();
   };
 
   const addAdminShortcut = async (emailId) => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/admin-add`, {
         method: 'POST',
@@ -88,11 +92,12 @@ function Users() {
       console.log(err);
       enqueueSnackbar('Failed to add admin. Something went wrong.', { variant: 'error' });
     }
-
+    setLoading(false);
     updateUsers();
   };
 
   const removeAdminRole = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/admin-remove`, {
         method: 'POST',
@@ -109,11 +114,12 @@ function Users() {
       console.log(err);
       enqueueSnackbar('Failed to remove admin. Something went wrong.', { variant: 'error' });
     }
-
+    setLoading(false);
     updateUsers();
   };
 
   const removeAdminShortcut = async (emailId) => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/admin-remove`, {
         method: 'POST',
@@ -130,7 +136,7 @@ function Users() {
       console.log(err);
       enqueueSnackbar('Failed to remove admin. Something went wrong.', { variant: 'error' });
     }
-
+    setLoading(false);
     updateUsers();
   };
 

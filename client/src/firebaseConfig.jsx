@@ -1,8 +1,6 @@
-// Import the functions you need from the SDKs you need
-// import { CleaningServices } from '@mui/icons-material';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-// import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getStorage } from 'firebase/storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,13 +20,6 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-// const storage = getStorage();
-
-// export async function upload(file, currentUser, setLoading) {
-//   const fileRef = ref(storage, `${currentUser.uid}+ .png`);
-//   setLoading(true);
-//   const snapshot = await uploadBytes(fileRef, file);
-//   setLoading(false);
-// }
+export const storage = getStorage(app);
 
 export default auth;

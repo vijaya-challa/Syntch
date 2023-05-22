@@ -16,7 +16,7 @@ import SyntchLogo from 'common/components/SyntchLogo';
 import { NavLink, useNavigate } from 'react-router-dom';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useTheme } from '@mui/material';
+import { LinearProgress, useTheme } from '@mui/material';
 
 function Navbar(props) {
   const theme = useTheme();
@@ -26,7 +26,7 @@ function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [navPages, setNavPages] = useState([]);
-  const { authUser, userSignOut, isAdmin } = useAuthUser();
+  const { authUser, userSignOut, isAdmin, loading } = useAuthUser();
 
   const pages = [
     {
@@ -220,6 +220,11 @@ function Navbar(props) {
               )}
             </Box>
           </Toolbar>
+        </Container>
+        <Container>
+          {loading ? (
+            <LinearProgress color="secondary" sx={{ width: '100%', height: '5px' }} />
+          ) : undefined}
         </Container>
       </AppBar>
       <Toolbar />

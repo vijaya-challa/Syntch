@@ -28,11 +28,12 @@ function Tasks() {
   const [description, setDescription] = useState('');
   const [snippet, setSnippet] = useState('');
 
-  const { authUser } = useAuthUser();
+  const { authUser, setLoading } = useAuthUser();
   const { enqueueSnackbar } = useSnackbar();
 
   const updateTasks = async () => {
     async function fetchData() {
+      setLoading(true);
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/task/all`, {
           method: 'GET',
@@ -47,12 +48,14 @@ function Tasks() {
         console.log(err);
         enqueueSnackbar('Failed to update Tasks. Something went wrong', { variant: 'error' });
       }
+      setLoading(false);
     }
     fetchData();
   };
 
   const updateLevels = async () => {
     async function fetchData() {
+      setLoading(true);
       try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/level/all`, {
           method: 'GET',
@@ -67,6 +70,7 @@ function Tasks() {
         console.log(err);
         enqueueSnackbar('Failed to update levels. Something went wrong', { variant: 'error' });
       }
+      setLoading(false);
     }
     fetchData();
   };
@@ -77,6 +81,7 @@ function Tasks() {
   }, []);
 
   const addTask = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/task/add`, {
         method: 'POST',
@@ -95,10 +100,12 @@ function Tasks() {
       console.log(err);
       enqueueSnackbar('Please check your inputs', { variant: 'error' });
     }
+    setLoading(false);
     updateTasks();
   };
 
   const removeTask = async (id) => {
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/task/delete`, {
         method: 'DELETE',
@@ -114,6 +121,7 @@ function Tasks() {
       console.log(err);
       enqueueSnackbar('Failed to remove task', { variant: 'error' });
     }
+    setLoading(false);
     updateTasks();
   };
 
@@ -175,7 +183,6 @@ function Tasks() {
           sx={{ mb: 2 }}>
           Add Task
         </Button>
-
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
             <TableHead>

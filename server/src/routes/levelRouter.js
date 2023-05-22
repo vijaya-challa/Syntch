@@ -7,9 +7,9 @@ const levelRouter = express.Router();
 
 levelRouter.post('/add', async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { name, timerCount, blanksCount, defaultPoints } = req.body;
     if (name) {
-      const level = new Level({ name });
+      const level = new Level({ name, timerCount, blanksCount, defaultPoints });
       await level.save();
       res.json({ msg: `level added`, level });
     } else {
@@ -53,9 +53,17 @@ levelRouter.post('/tasks', async (req, res, next) => {
 
     // eslint-disable-next-line no-underscore-dangle
     const tasks = await Task.find({ level: level._id });
-    // eslint-disable-next-line no-underscore-dangle
-    const resObj = { level: level.name, _id: level._id, tasks };
-    console.log(resObj);
+
+    const resObj = {
+      level: level.name,
+      timerCount: level.timerCount,
+      blanksCount: level.blanksCount,
+      defaultPoints: level.defaultPoints,
+      // eslint-disable-next-line no-underscore-dangle
+      _id: level._id,
+      tasks
+    };
+    // console.log(resObj);
     res.json(resObj);
   } catch (error) {
     next(createError(401, error.message));
